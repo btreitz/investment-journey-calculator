@@ -12,7 +12,7 @@
     <artifactId>investmentcalc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>investmentcalc</name>
-    <description>Web Application to calculate the expexted Value of invested money based on compound interests
+    <description>Web Application to calculate the expected Value of invested money based on compound interests
     </description>
 
     <properties>
