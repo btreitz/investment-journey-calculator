@@ -3,6 +3,7 @@ package com.btreitz.investmentcalc;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
+@ContextConfiguration(classes = {CalculationService.class, CalculationController.class})
 class CalculationControllerTest {
 
     @Autowired
@@ -17,6 +19,15 @@ class CalculationControllerTest {
 
     @Test
     void index() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().is(200));
+        this.mockMvc.perform(get("/"))
+                .andDo(print())
+                .andExpect(status().is(200));
+    }
+
+    @Test
+    void calculation_mapping() throws Exception {
+        this.mockMvc.perform(get("/calculate?initialInvestment=0.0&periodicContribution=0&contributionFrequency=0&annualGrowth=0&duration=0"))
+                .andDo(print())
+                .andExpect(status().is(200));
     }
 }
