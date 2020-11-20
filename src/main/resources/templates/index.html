@@ -1,10 +1,38 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Investment Journey Calculator</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
-<p th:text="'Hello World'"></p>
+<form action="/calculate" method="GET">
+    <div class="flex-row">
+        <label for="inInv">Initial Investment</label>
+        <input id="inInv" name="initialInvestment" placeholder="1000 €" type="text">
+    </div>
+    <div class="flex-row">
+        <label for="perContr">Periodic Contribution</label>
+        <input id="perContr" name="periodicContribution" placeholder="100 €" type="text">
+    </div>
+    <div class="flex-row">
+        <label for="contrFreq">Contribution Frequency</label>
+        <select id="contrFreq" name="contributionFrequency">
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="semi-annually">Semi-Annually</option>
+            <option value="annually">Annually</option>
+        </select>
+    </div>
+    <div class="flex-row">
+        <label for="annGrowth">Annual Growth</label>
+        <input id="annGrowth" name="annualGrowth" placeholder="8.0 %" type="text">
+    </div>
+    <div class="flex-row">
+        <label for="durat">Duration [in years]</label>
+        <input id="durat" name="duration" placeholder="10" type="text">
+    </div>
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>

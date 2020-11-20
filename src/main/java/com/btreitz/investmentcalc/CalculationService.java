@@ -9,7 +9,7 @@ public class CalculationService implements ICalculationService {
     public CalculationResult calculateResults(
             double initialInvestment,
             double periodicContribution,
-            int contributionFrequency,
+            String contributionFrequency,
             double annualGrowth,
             int duration) {
         return null;

@@ -26,7 +26,7 @@ class CalculationControllerTest {
 
     @Test
     void calculation_mapping() throws Exception {
-        this.mockMvc.perform(get("/calculate?initialInvestment=0.0&periodicContribution=0&contributionFrequency=0&annualGrowth=0&duration=0"))
+        this.mockMvc.perform(get("/calculate?initialInvestment=0.0&periodicContribution=0&contributionFrequency=monthly&annualGrowth=0&duration=0"))
                 .andDo(print())
                 .andExpect(status().is(200));
     }

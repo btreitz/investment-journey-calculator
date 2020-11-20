@@ -5,7 +5,7 @@ public interface ICalculationService {
     CalculationResult calculateResults(
             double initialInvestment,
             double periodicContribution,
-            int contributionFrequency,
+            String contributionFrequency,
             double annualGrowth,
             int duration
     );

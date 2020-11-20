@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CalculationController {
@@ -21,14 +20,15 @@ public class CalculationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/calculate")
-    @ResponseBody
-    public CalculationResult calculateResults(
+    public String calculateResults(
             @RequestParam(name = "initialInvestment") double initialInvestment,
             @RequestParam(name = "periodicContribution") double periodicContribution,
-            @RequestParam(name = "contributionFrequency") int contributionFrequency,
+            @RequestParam(name = "contributionFrequency") String contributionFrequency,
             @RequestParam(name = "annualGrowth") double annualGrowth,
             @RequestParam(name = "duration") int duration) {
-        return calculationService.calculateResults(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration);
+        CalculationResult calculationResult = calculationService.calculateResults(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration);
+        // add results to model
+        return "index";
     }
 
 }
