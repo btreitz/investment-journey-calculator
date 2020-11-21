@@ -8,6 +8,9 @@ import java.time.Year;
 public class CalculationService implements ICalculationService {
 
     /**
+     * Calculate Results in total and for every single year determined by the given duration
+     * Therefore create the classes CalculationResult and AnnualResult and save the results in those classes
+     *
      * @param initialInvestment     Initial start Balance
      * @param periodicContribution  further contribution amount
      * @param contributionFrequency further contribution frequency as every month/quarter/half a year/year
