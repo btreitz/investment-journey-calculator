@@ -12,6 +12,7 @@ public class CalculationService implements ICalculationService {
             int contributionFrequency,
             double annualGrowth,
             int duration) {
+        CalculationResult calculationResult = new CalculationResult(duration);
         return null;
     }
 }
