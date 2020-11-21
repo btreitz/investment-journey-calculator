@@ -13,6 +13,7 @@ public class CalculationService implements ICalculationService {
             double annualGrowth,
             int duration) {
         CalculationResult calculationResult = new CalculationResult(duration);
-        return null;
+
+        return calculationResult;
     }
 }

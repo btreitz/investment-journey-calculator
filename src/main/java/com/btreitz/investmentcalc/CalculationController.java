@@ -28,10 +28,9 @@ public class CalculationController {
             @RequestParam(name = "contributionFrequency") int contributionFrequency,
             @RequestParam(name = "annualGrowth") double annualGrowth,
             @RequestParam(name = "duration") int duration) {
-        Query query = new Query(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration);
         CalculationResult calculationResult = calculationService.calculateResults(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration);
-        // add results to model
-        model.addAttribute("query", query);
+        model.addAttribute("query", new Query(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration));
+        model.addAttribute("calculationResult", calculationResult);
         return "index";
     }
 
