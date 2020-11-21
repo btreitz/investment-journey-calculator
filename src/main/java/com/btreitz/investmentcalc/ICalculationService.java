@@ -10,4 +10,8 @@ public interface ICalculationService {
             int duration
     );
 
+    double calcMonth(double beforeTotal, double annualGrowth);
+
+    double calcMonth(double beforeTotal, double contribution, double annualGrowth);
+
 }
