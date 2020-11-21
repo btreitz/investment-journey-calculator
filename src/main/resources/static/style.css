@@ -78,3 +78,18 @@ input[type=submit]:hover {
     content: "%";
     color: grey;
 }
+
+.resultOverview {
+    border-style: solid;
+    padding: 10px;
+    margin: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 8px;
+}

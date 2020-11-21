@@ -1,5 +1,6 @@
 package com.btreitz.investmentcalc;
 
+import com.btreitz.investmentcalc.utils.CalculationUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -33,7 +34,7 @@ public class CalculationService implements ICalculationService {
 
         // For every year (Amount of years = duration) create an AnnualResult
         for (int currentYear = 0; currentYear < duration; currentYear++) {
-            AnnualResult annualResult = new AnnualResult(Year.now().getValue() + currentYear, currentBalance);
+            AnnualResult annualResult = new AnnualResult(Year.now().getValue() + currentYear, CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
             // call calcMonth for every single month in a year (12 times)
             for (int currentMonth = 0; currentMonth < 12; currentMonth++) {
                 if (currentMonth % contributionFrequency == 0) {
@@ -42,16 +43,16 @@ public class CalculationService implements ICalculationService {
                     currentBalance = calcMonth(currentBalance, annualGrowth);
                 }
             }
-            annualResult.setEndBalance(currentBalance);
+            annualResult.setEndBalance(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
             double annualContribution = (12.0 / contributionFrequency) * periodicContribution;
-            annualResult.setAnnualContribution(annualContribution);
-            annualResult.setAnnualInterest(currentBalance - annualContribution - annualResult.getStartBalance());
+            annualResult.setAnnualContribution(CalculationUtils.trimDoubleToDecimalPrecision(2, annualContribution));
+            annualResult.setAnnualInterest(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance - annualContribution - annualResult.getStartBalance()));
             calculationResult.getAnnualResultList()[currentYear] = annualResult;
         }
-        calculationResult.setTotalValue(currentBalance);
+        calculationResult.setTotalValue(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
         double totalContribution = ((12.0 / contributionFrequency) * periodicContribution) * duration;
-        calculationResult.setTotalContributions(totalContribution);
-        calculationResult.setTotalInterest(currentBalance - totalContribution - initialInvestment);
+        calculationResult.setTotalContributions(CalculationUtils.trimDoubleToDecimalPrecision(2, totalContribution));
+        calculationResult.setTotalInterest(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance - totalContribution - initialInvestment));
         return calculationResult;
     }
 

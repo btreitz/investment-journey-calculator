@@ -46,5 +46,30 @@
     </div>
     <input type="submit" value="Submit">
 </form>
+<p th:if="${calculationResult != null}">
+    <span class="resultOverview" th:text="${calculationResult.getTotalValue()} + ' €'"></span>
+    <span class="resultOverview" th:text="${calculationResult.getTotalContributions()} + ' €'"></span>
+    <span class="resultOverview" th:text="${calculationResult.getTotalInterest()} + ' €'"></span>
+</p>
+<table th:if="${calculationResult != null}">
+    <thead>
+    <tr>
+        <th> Year</th>
+        <th> Start Amount</th>
+        <th> Annual Contribution</th>
+        <th> Annual Interest</th>
+        <th> End Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="annualResult : ${calculationResult.getAnnualResultList()}">
+        <td><span th:text="${annualResult.getYear()}"> Year </span></td>
+        <td><span th:text="'€ ' + ${annualResult.getStartBalance()}"> Start Amount </span></td>
+        <td><span th:text="'€ ' + ${annualResult.getAnnualContribution()}"> Annual Contribution </span></td>
+        <td><span th:text="'€ ' + ${annualResult.getAnnualInterest()}"> Annual Interest </span></td>
+        <td><span th:text="'€ ' + ${annualResult.getEndBalance()}"> End Balance </span></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
