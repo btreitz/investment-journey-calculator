@@ -15,12 +15,36 @@ form {
     padding: 5px 0;
 }
 
-input[type=text], select {
-    width: 130px;
+select {
+    width: 120px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     padding: 4px;
+}
+
+input[type=text], input[type=number] {
+    border-style: none;
+    padding-right: 10px;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.inputElement {
+    display: flex;
+    flex-direction: row;
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.inputElement:focus {
+    border-style: solid;
 }
 
 input[type=submit] {
@@ -32,4 +56,25 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: darkgrey;
+}
+
+.currency::after {
+    display: block;
+    float: right;
+    content: "€";
+    color: grey;
+}
+
+.years::after {
+    display: block;
+    float: right;
+    content: "years";
+    color: grey;
+}
+
+.percentage::after {
+    display: block;
+    float: right;
+    content: "%";
+    color: grey;
 }
