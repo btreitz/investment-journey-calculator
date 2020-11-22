@@ -7,7 +7,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -20,14 +19,35 @@ class CalculationControllerTest {
     @Test
     void index() throws Exception {
         this.mockMvc.perform(get("/"))
-                .andDo(print())
                 .andExpect(status().is(200));
     }
 
     @Test
     void calculation_mapping() throws Exception {
         this.mockMvc.perform(get("/calculate?initialInvestment=0.0&periodicContribution=0&contributionFrequency=1&annualGrowth=0&duration=0"))
-                .andDo(print())
                 .andExpect(status().is(200));
+    }
+
+    @Test
+    void input_validation() throws Exception {
+        // Initial Investment negative
+        this.mockMvc.perform(get("/calculate?initialInvestment=-1000.0&periodicContribution=200&contributionFrequency=1&annualGrowth=8&duration=15"))
+                .andExpect(status().isBadRequest());
+
+        // Periodic Contribution negative
+        this.mockMvc.perform(get("/calculate?initialInvestment=1000.0&periodicContribution=-200&contributionFrequency=1&annualGrowth=8&duration=15"))
+                .andExpect(status().isBadRequest());
+
+        // Contribution Frequency above 12
+        this.mockMvc.perform(get("/calculate?initialInvestment=1000.0&periodicContribution=200&contributionFrequency=13&annualGrowth=8&duration=15"))
+                .andExpect(status().isBadRequest());
+
+        // Annual Growth above 100 %
+        this.mockMvc.perform(get("/calculate?initialInvestment=1000.0&periodicContribution=200&contributionFrequency=1&annualGrowth=110&duration=15"))
+                .andExpect(status().isBadRequest());
+
+        // Duration is zero
+        this.mockMvc.perform(get("/calculate?initialInvestment=1000.0&periodicContribution=200&contributionFrequency=1&annualGrowth=8&duration=0"))
+                .andExpect(status().isBadRequest());
     }
 }

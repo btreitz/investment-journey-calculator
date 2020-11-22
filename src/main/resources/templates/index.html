@@ -40,7 +40,8 @@
     <div class="flex-row">
         <label for="durat">Duration</label>
         <span class="input-element years">
-            <input id="durat" name="duration" placeholder="10" required th:min="1" th:value="${query?.duration}"
+            <input id="durat" name="duration" placeholder="10" required th:max="100" th:min="1"
+                   th:value="${query?.duration}"
                    type="number">
         </span>
     </div>
