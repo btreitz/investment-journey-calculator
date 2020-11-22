@@ -100,3 +100,11 @@ table, th, td {
 td {
     padding: 8px;
 }
+
+.error-container {
+    border-style: solid;
+    border-color: red;
+    border-width: 2px;
+    padding: 15px;
+    margin-bottom: 20px;
+}

@@ -6,6 +6,11 @@
     <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
+<div class="error-container" th:if="${errors != null}">
+    <ul th:each="errorMessage : ${errors}">
+        <li th:text="${errorMessage}"></li>
+    </ul>
+</div>
 <form action="#" method="GET" th:action="@{/calculate}">
     <div class="flex-row">
         <label for="inInv">Initial Investment</label>
