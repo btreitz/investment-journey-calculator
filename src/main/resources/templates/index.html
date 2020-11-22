@@ -6,24 +6,28 @@
     <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
+
+<!-- ERROR HANDLING -->
 <div class="error-container" th:if="${errors != null}">
     <ul th:each="errorMessage : ${errors}">
         <li th:text="${errorMessage}"></li>
     </ul>
 </div>
+
+<!-- BASIC PLAN -->
 <form action="#" method="GET" th:action="@{/calculate}">
     <div class="flex-row">
         <label for="inInv">Initial Investment</label>
         <span class="input-element currency">
-            <input id="inInv" name="initialInvestment" placeholder="1000.0" required th:min="0"
-                   th:value="${query?.initialInvestment}" type="number">
+            <input id="inInv" name="initialInvestment" placeholder="1000.0" required
+                   th:min="0" th:value="${query?.initialInvestment}" type="number">
         </span>
     </div>
     <div class="flex-row">
         <label for="perContr">Periodic Contribution</label>
         <span class="input-element currency">
-            <input id="perContr" name="periodicContribution" placeholder="100.0" required th:min="0"
-                   th:value="${query?.periodicContribution}" type="number">
+            <input id="perContr" name="periodicContribution" placeholder="100.0" required
+                   th:min="0" th:value="${query?.periodicContribution}" type="number">
         </span>
     </div>
     <div class="flex-row">
@@ -38,20 +42,25 @@
     <div class="flex-row">
         <label for="annGrowth">Annual Growth</label>
         <span class="input-element percentage">
-            <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100" th:min="-100"
-                   th:value="${query?.annualGrowth}" type="number">
+            <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100"
+                   th:min="-100" th:value="${query?.annualGrowth}" type="number">
         </span>
     </div>
     <div class="flex-row">
         <label for="durat">Duration</label>
         <span class="input-element years">
-            <input id="durat" name="duration" placeholder="10" required th:max="100" th:min="1"
+            <input id="durat" name="duration" placeholder="10" required th:max="100"
                    th:value="${query?.duration}"
-                   type="number">
+                   th:min="1" type="number">
         </span>
     </div>
+
+    <!-- ADDITIONAL PLANS IN JOURNEY -->
+
     <input type="submit" value="Submit">
 </form>
+
+<!-- RESULT OVERVIEW -->
 <div class="total-overview" th:if="${calculationResult != null}">
     <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
             th:text="${calculationResult.getTotalValue()} + ' €'"></span></div>
@@ -60,6 +69,8 @@
     <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
             th:text="${calculationResult.getTotalInterest()} + ' €'"></span></div>
 </div>
+
+<!-- RESULTS DETAIL -->
 <table th:if="${calculationResult != null}">
     <thead>
     <tr>
