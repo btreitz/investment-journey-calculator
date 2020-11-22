@@ -9,14 +9,14 @@
 <form action="#" method="GET" th:action="@{/calculate}">
     <div class="flex-row">
         <label for="inInv">Initial Investment</label>
-        <span class="inputElement currency">
+        <span class="input-element currency">
             <input id="inInv" name="initialInvestment" placeholder="1000.0" required th:min="0"
                    th:value="${query?.initialInvestment}" type="number">
         </span>
     </div>
     <div class="flex-row">
         <label for="perContr">Periodic Contribution</label>
-        <span class="inputElement currency">
+        <span class="input-element currency">
             <input id="perContr" name="periodicContribution" placeholder="100.0" required th:min="0"
                    th:value="${query?.periodicContribution}" type="number">
         </span>
@@ -32,25 +32,28 @@
     </div>
     <div class="flex-row">
         <label for="annGrowth">Annual Growth</label>
-        <span class="inputElement percentage">
+        <span class="input-element percentage">
             <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100" th:min="-100"
                    th:value="${query?.annualGrowth}" type="number">
         </span>
     </div>
     <div class="flex-row">
         <label for="durat">Duration</label>
-        <span class="inputElement years">
+        <span class="input-element years">
             <input id="durat" name="duration" placeholder="10" required th:min="1" th:value="${query?.duration}"
                    type="number">
         </span>
     </div>
     <input type="submit" value="Submit">
 </form>
-<p th:if="${calculationResult != null}">
-    <span class="resultOverview" th:text="${calculationResult.getTotalValue()} + ' €'"></span>
-    <span class="resultOverview" th:text="${calculationResult.getTotalContributions()} + ' €'"></span>
-    <span class="resultOverview" th:text="${calculationResult.getTotalInterest()} + ' €'"></span>
-</p>
+<div class="total-overview" th:if="${calculationResult != null}">
+    <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
+            th:text="${calculationResult.getTotalValue()} + ' €'"></span></div>
+    <div class="result-row"><span th:text="'Total Contributions:'"></span><span
+            th:text="${calculationResult.getTotalContributions()} + ' €'"></span></div>
+    <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
+            th:text="${calculationResult.getTotalInterest()} + ' €'"></span></div>
+</div>
 <table th:if="${calculationResult != null}">
     <thead>
     <tr>

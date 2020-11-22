@@ -33,7 +33,7 @@ input:focus {
     outline: none;
 }
 
-.inputElement {
+.input-element {
     display: flex;
     flex-direction: row;
     width: 120px;
@@ -43,7 +43,7 @@ input:focus {
     padding: 4px;
 }
 
-.inputElement:focus {
+.input-element:focus {
     border-style: solid;
 }
 
@@ -79,10 +79,17 @@ input[type=submit]:hover {
     color: grey;
 }
 
-.resultOverview {
-    border-style: solid;
-    padding: 10px;
-    margin: 20px;
+.result-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.total-overview {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
 }
 
 table, th, td {
