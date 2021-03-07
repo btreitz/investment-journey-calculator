@@ -54,6 +54,10 @@ public class CalculationController {
         return "index";
     }
 
+    /**
+     * For multiple phases in a whole journey, receive arrays of values instead of single values in multiple requests
+     * -> 1 Request -> Each value in an array -> calculate results for each index-position in the arrays
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/calculate")
     public String calculateResults(
             Model model,
