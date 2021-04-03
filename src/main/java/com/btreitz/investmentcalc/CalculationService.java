@@ -4,26 +4,56 @@ import com.btreitz.investmentcalc.utils.CalculationUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
+import java.util.List;
 
 @Service
 public class CalculationService implements ICalculationService {
 
     @Override
-    public CalculationResult calculatePhase(
+    public TotalResult calculateTotal(
             double initialInvestment,
+            List<Double> periodicContributionList,
+            List<Integer> contributionFrequencyList,
+            List<Double> annualGrowthList,
+            List<Integer> durationList) {
+        int phasesCount = periodicContributionList.size();
+        TotalResult totalResult = new TotalResult(phasesCount, initialInvestment);
+        double currPhaseStartBalance = initialInvestment;
+        int currPhaseStartYear = Year.now().getValue();
+        for (int currPhaseIdx = 0; currPhaseIdx < phasesCount; currPhaseIdx++) {
+            PhaseResult phaseResult = calculatePhase(
+                    currPhaseStartYear,
+                    currPhaseStartBalance,
+                    periodicContributionList.get(currPhaseIdx),
+                    contributionFrequencyList.get(currPhaseIdx),
+                    annualGrowthList.get(currPhaseIdx),
+                    durationList.get(currPhaseIdx));
+            totalResult.getPhaseResultList()[currPhaseIdx] = phaseResult;
+            totalResult.addNewValues(phaseResult.getTotalPhaseContributions(), phaseResult.getTotalPhaseInterest());
+            currPhaseStartBalance = phaseResult.getTotalPhaseValue();
+            currPhaseStartYear += durationList.get(currPhaseIdx);
+        }
+        totalResult.setTotalValue(totalResult.getPhaseResultList()[totalResult.getPhaseResultList().length - 1].getTotalPhaseValue());
+        return totalResult;
+    }
+
+    @Override
+    public PhaseResult calculatePhase(
+            int phaseStartYear,
+            double phaseStartBalance,
             double periodicContribution,
             int contributionFrequency,
             double annualGrowth,
             int duration) {
-        CalculationResult calculationResult = new CalculationResult(duration, initialInvestment);
+        PhaseResult phaseResult = new PhaseResult(duration, phaseStartBalance);
 
         // initialize currentBalance with initialInvestment for first annual iteration
         // update currentBalance after first iteration
-        double currentBalance = initialInvestment;
+        double currentBalance = phaseStartBalance;
 
         // For every year (Amount of years = duration) create an AnnualResult
         for (int currentYear = 0; currentYear < duration; currentYear++) {
-            AnnualResult annualResult = new AnnualResult(Year.now().getValue() + currentYear, CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
+            AnnualResult annualResult = new AnnualResult(phaseStartYear + currentYear, CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
             // call calcMonth for every single month in a year (12 times)
             for (int currentMonth = 0; currentMonth < 12; currentMonth++) {
                 if (currentMonth % contributionFrequency == 0) {
@@ -36,13 +66,13 @@ public class CalculationService implements ICalculationService {
             double annualContribution = (12.0 / contributionFrequency) * periodicContribution;
             annualResult.setAnnualContribution(CalculationUtils.trimDoubleToDecimalPrecision(2, annualContribution));
             annualResult.setAnnualInterest(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance - annualContribution - annualResult.getStartBalance()));
-            calculationResult.getAnnualResultList()[currentYear] = annualResult;
+            phaseResult.getAnnualResultList()[currentYear] = annualResult;
         }
-        calculationResult.setTotalValue(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
+        phaseResult.setTotalPhaseValue(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance));
         double totalContribution = ((12.0 / contributionFrequency) * periodicContribution) * duration;
-        calculationResult.setTotalContributions(CalculationUtils.trimDoubleToDecimalPrecision(2, totalContribution));
-        calculationResult.setTotalInterest(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance - totalContribution - initialInvestment));
-        return calculationResult;
+        phaseResult.setTotalPhaseContributions(CalculationUtils.trimDoubleToDecimalPrecision(2, totalContribution));
+        phaseResult.setTotalPhaseInterest(CalculationUtils.trimDoubleToDecimalPrecision(2, currentBalance - totalContribution - phaseStartBalance));
+        return phaseResult;
     }
 
     @Override

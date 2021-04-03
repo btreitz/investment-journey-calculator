@@ -26,6 +26,13 @@ public class CalculationController {
         this.calculationService = calculationService;
     }
 
+    /**
+     * Check which validation violations exist and append specific error messages
+     *
+     * @param model model for view
+     * @param e exception
+     * @return reload index
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     String handleConstraintViolationException(Model model, ConstraintViolationException e) {
@@ -53,7 +60,7 @@ public class CalculationController {
             }
         }
         model.addAttribute("errors", errorMessages);
-        return "index";
+        return "index::error-container";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
@@ -73,8 +80,8 @@ public class CalculationController {
             @RequestParam(name = "contributionFrequency") @MinIntElemValueConstraint(1) @MaxIntElemValueConstraint(12) List<Integer> contributionFrequency,
             @RequestParam(name = "annualGrowth") @MinDoubleElemValueConstraint(-100) @MaxDoubleElemValueConstraint(100) List<Double> annualGrowth,
             @RequestParam(name = "duration") @MinIntElemValueConstraint(1) @MaxIntElemValueConstraint(100) List<Integer> duration) {
-        CalculationResult calculationResult = calculationService.calculatePhase(initialInvestment, periodicContribution.get(0), contributionFrequency.get(0), annualGrowth.get(0), duration.get(0));
-        model.addAttribute("calculationResult", calculationResult);
+        TotalResult totalResult = calculationService.calculateTotal(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration);
+        model.addAttribute("totalResult", totalResult);
         return "index::results";
     }
 

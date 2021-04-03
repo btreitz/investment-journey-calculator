@@ -8,7 +8,7 @@
 <body>
 
 <!-- ERROR HANDLING -->
-<div class="error-container" th:if="${errors != null}">
+<div class="error-container" th:if="${errors != null}" th:fragment="error-container">
     <ul th:each="errorMessage : ${errors}">
         <li th:text="${errorMessage}"></li>
     </ul>
@@ -73,19 +73,19 @@
 <div id="results" th:fragment="results">
 
     <!-- RESULT OVERVIEW -->
-    <div class="total-overview" th:if="${calculationResult != null}">
+    <div class="total-overview" th:if="${totalResult != null}">
         <div class="result-row"><span th:text="'Start Balance:'"></span><span
-                th:text="${calculationResult.getStartBalance()} + ' €'"></span></div>
+                th:text="${totalResult.getStartBalance()} + ' €'"></span></div>
         <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
-                th:text="${calculationResult.getTotalValue()} + ' €'"></span></div>
+                th:text="${totalResult.getTotalValue()} + ' €'"></span></div>
         <div class="result-row"><span th:text="'Total Contributions:'"></span><span
-                th:text="${calculationResult.getTotalContributions()} + ' €'"></span></div>
+                th:text="${totalResult.getTotalContributions()} + ' €'"></span></div>
         <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
-                th:text="${calculationResult.getTotalInterest()} + ' €'"></span></div>
+                th:text="${totalResult.getTotalInterest()} + ' €'"></span></div>
     </div>
 
     <!-- RESULTS DETAIL -->
-    <table th:if="${calculationResult != null}">
+    <table th:if="${totalResult != null}">
         <div class="table-content">
             <thead>
             <tr>
@@ -97,13 +97,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="annualResult : ${calculationResult.getAnnualResultList()}">
+            <span th:each="phase : ${totalResult.getPhaseResultList()}">
+                <tr th:each="annualResult : ${phase.getAnnualResultList()}">
                 <td><span th:text="${annualResult.getYear()}"> Year </span></td>
                 <td><span th:text="'€ ' + ${annualResult.getStartBalance()}"> Start Amount </span></td>
                 <td><span th:text="'€ ' + ${annualResult.getAnnualContribution()}"> Annual Contribution </span></td>
                 <td><span th:text="'€ ' + ${annualResult.getAnnualInterest()}"> Annual Interest </span></td>
                 <td><span th:text="'€ ' + ${annualResult.getEndBalance()}"> End Balance </span></td>
             </tr>
+            </span>
             </tbody>
         </div>
     </table>

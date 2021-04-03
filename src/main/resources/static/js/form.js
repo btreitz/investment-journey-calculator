@@ -7,9 +7,11 @@
             url: formElem.attr('action'),
             type: formElem.attr('method'),
             data: formElem.serialize(),
-            success: function (fragment) {
-                console.log(fragment);
-                $("#results").html(fragment);
+            success: function (tableFragment) {
+                $("#results").html(tableFragment);
+            },
+            error: function (errorFragment) {
+                $(".error-container").html(errorFragment);
             }
         })
     })
