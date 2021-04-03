@@ -3,7 +3,7 @@
 <head>
     <title>Investment Journey Calculator</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
@@ -15,115 +15,101 @@
 </div>
 
 <!-- BASIC PLAN -->
-<form action="#" method="GET" th:action="@{/calculate}">
-    <div class="flex-row">
-        <label for="inInv">Initial Investment</label>
-        <span class="input-element currency">
-            <input id="inInv" name="initialInvestment" placeholder="1000.0" required
-                   th:min="0" th:value="${query?.initialInvestment}" type="number">
-        </span>
-    </div>
-    <div class="flex-row">
-        <label for="perContr">Periodic Contribution</label>
-        <span class="input-element currency">
-            <input id="perContr" name="periodicContribution" placeholder="100.0" required
-                   th:min="0" th:value="${query?.periodicContribution}" type="number">
-        </span>
-    </div>
-    <div class="flex-row">
-        <label for="contrFreq">Contribution Frequency</label>
-        <select id="contrFreq" name="contributionFrequency">
-            <option th:selected="${query?.contributionFrequency == 1}" th:text="Monthly" th:value="1"></option>
-            <option th:selected="${query?.contributionFrequency == 3}" th:text="Quarterly" th:value="3"></option>
-            <option th:selected="${query?.contributionFrequency == 6}" th:text="Semi-Annually" th:value="6"></option>
-            <option th:selected="${query?.contributionFrequency == 12}" th:text="Annually" th:value="12"></option>
-        </select>
-    </div>
-    <div class="flex-row">
-        <label for="annGrowth">Annual Growth</label>
-        <span class="input-element percentage">
-            <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100"
-                   th:min="-100" th:value="${query?.annualGrowth}" type="number">
-        </span>
-    </div>
-    <div class="flex-row">
-        <label for="durat">Duration</label>
-        <span class="input-element years">
-            <input id="durat" name="duration" placeholder="10" required th:max="100"
-                   th:value="${query?.duration}"
-                   th:min="1" type="number">
-        </span>
+<form method="POST" action="/calculate" id="form">
+    <div id="base-form">
+        <div class="flex-row">
+            <label for="inInv">Initial Investment</label>
+            <span class="input-element currency">
+                <input id="inInv" name="initialInvestment" placeholder="1000.0" required
+                       th:min="0" type="number">
+            </span>
+        </div>
+        <div class="flex-row">
+            <label for="perContr">Periodic Contribution</label>
+            <span class="input-element currency">
+                <input id="perContr" name="periodicContribution" placeholder="100.0" required
+                       th:min="0" type="number">
+            </span>
+        </div>
+        <div class="flex-row">
+            <label for="contrFreq">Contribution Frequency</label>
+            <select id="contrFreq" name="contributionFrequency">
+                <option th:text="Monthly" th:value="1" selected></option>
+                <option th:text="Quarterly" th:value="3"></option>
+                <option th:text="Semi-Annually" th:value="6"></option>
+                <option th:text="Annually" th:value="12"></option>
+            </select>
+        </div>
+        <div class="flex-row">
+            <label for="annGrowth">Annual Growth</label>
+            <span class="input-element percentage">
+                <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100"
+                       th:min="-100" type="number">
+            </span>
+        </div>
+        <div class="flex-row">
+            <label for="durat">Duration</label>
+            <span class="input-element years">
+                <input id="durat" name="duration" placeholder="10" required th:max="100"
+                       th:min="1" type="number">
+            </span>
+        </div>
     </div>
 
     <!-- ADDITIONAL PLANS IN JOURNEY -->
     <!-- The additional plans are created dynamically by javascript at click of a button like "add" -->
+    <div id="additional-phases"></div>
 
-    <!-- Test additional phase -->
-    <div class="flex-row">
-        <label for="perContr2">Periodic Contribution</label>
-        <span class="input-element currency">
-            <input id="perContr2" name="periodicContribution" placeholder="100.0" required
-                   th:min="0" th:value="${query?.periodicContribution}" type="number">
-        </span>
-    </div>
-    <div class="flex-row">
-        <label for="contrFreq2">Contribution Frequency</label>
-        <select id="contrFreq2" name="contributionFrequency">
-            <option th:selected="${query?.contributionFrequency == 1}" th:text="Monthly" th:value="1"></option>
-            <option th:selected="${query?.contributionFrequency == 3}" th:text="Quarterly" th:value="3"></option>
-            <option th:selected="${query?.contributionFrequency == 6}" th:text="Semi-Annually" th:value="6"></option>
-            <option th:selected="${query?.contributionFrequency == 12}" th:text="Annually" th:value="12"></option>
-        </select>
-    </div>
-    <div class="flex-row">
-        <label for="annGrowth2">Annual Growth</label>
-        <span class="input-element percentage">
-            <input id="annGrowth2" name="annualGrowth" placeholder="8.0" required th:max="100"
-                   th:min="-100" th:value="${query?.annualGrowth}" type="number">
-        </span>
-    </div>
-    <div class="flex-row">
-        <label for="durat2">Duration</label>
-        <span class="input-element years">
-            <input id="durat2" name="duration" placeholder="10" required th:max="100"
-                   th:value="${query?.duration}"
-                   th:min="1" type="number">
-        </span>
+    <div id="add-rm-btns">
+        <button type="button" id="add-btn" th:onclick="addPhaseToForm()">Add investment phase</button>
+        <button type="button" id="rm-btn" th:onclick="removeLatestPhaseFromForm()" disabled>Remove phase</button>
     </div>
 
     <input type="submit" value="Submit">
+    <!-- <button type="button" th:onclick="submitForm()">Submit</button> -->
 </form>
 
-<!-- RESULT OVERVIEW -->
-<div class="total-overview" th:if="${calculationResult != null}">
-    <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
-            th:text="${calculationResult.getTotalValue()} + ' €'"></span></div>
-    <div class="result-row"><span th:text="'Total Contributions:'"></span><span
-            th:text="${calculationResult.getTotalContributions()} + ' €'"></span></div>
-    <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
-            th:text="${calculationResult.getTotalInterest()} + ' €'"></span></div>
+<!-- RESULTS -->
+<div id="results" th:fragment="results">
+
+    <!-- RESULT OVERVIEW -->
+    <div class="total-overview" th:if="${calculationResult != null}">
+        <div class="result-row"><span th:text="'Start Balance:'"></span><span
+                th:text="${calculationResult.getStartBalance()} + ' €'"></span></div>
+        <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
+                th:text="${calculationResult.getTotalValue()} + ' €'"></span></div>
+        <div class="result-row"><span th:text="'Total Contributions:'"></span><span
+                th:text="${calculationResult.getTotalContributions()} + ' €'"></span></div>
+        <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
+                th:text="${calculationResult.getTotalInterest()} + ' €'"></span></div>
+    </div>
+
+    <!-- RESULTS DETAIL -->
+    <table th:if="${calculationResult != null}">
+        <div class="table-content">
+            <thead>
+            <tr>
+                <th> Year</th>
+                <th> Start Amount</th>
+                <th> Annual Contribution</th>
+                <th> Annual Interest</th>
+                <th> End Balance</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="annualResult : ${calculationResult.getAnnualResultList()}">
+                <td><span th:text="${annualResult.getYear()}"> Year </span></td>
+                <td><span th:text="'€ ' + ${annualResult.getStartBalance()}"> Start Amount </span></td>
+                <td><span th:text="'€ ' + ${annualResult.getAnnualContribution()}"> Annual Contribution </span></td>
+                <td><span th:text="'€ ' + ${annualResult.getAnnualInterest()}"> Annual Interest </span></td>
+                <td><span th:text="'€ ' + ${annualResult.getEndBalance()}"> End Balance </span></td>
+            </tr>
+            </tbody>
+        </div>
+    </table>
 </div>
 
-<!-- RESULTS DETAIL -->
-<table th:if="${calculationResult != null}">
-    <thead>
-    <tr>
-        <th> Year</th>
-        <th> Start Amount</th>
-        <th> Annual Contribution</th>
-        <th> Annual Interest</th>
-        <th> End Balance</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="annualResult : ${calculationResult.getAnnualResultList()}">
-        <td><span th:text="${annualResult.getYear()}"> Year </span></td>
-        <td><span th:text="'€ ' + ${annualResult.getStartBalance()}"> Start Amount </span></td>
-        <td><span th:text="'€ ' + ${annualResult.getAnnualContribution()}"> Annual Contribution </span></td>
-        <td><span th:text="'€ ' + ${annualResult.getAnnualInterest()}"> Annual Interest </span></td>
-        <td><span th:text="'€ ' + ${annualResult.getEndBalance()}"> End Balance </span></td>
-    </tr>
-    </tbody>
-</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="application/javascript" th:src="@{/js/form.js}"></script>
 </body>
 </html>

@@ -108,3 +108,17 @@ td {
     padding: 15px;
     margin-bottom: 20px;
 }
+
+.additional-phase {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+#add-rm-btns {
+    display: flex;
+}
+
+#add-btn, #rm-btn {
+    flex-basis: 100%;
+}

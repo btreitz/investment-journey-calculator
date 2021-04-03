@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,9 @@ import java.util.Set;
 public class CalculationController {
 
     private final ICalculationService calculationService;
-    private Query mostRecentQuery;
 
     public CalculationController(ICalculationService calculationService) {
         this.calculationService = calculationService;
-        this.mostRecentQuery = new Query(0, 0, 1, 0, 1);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -56,7 +53,6 @@ public class CalculationController {
             }
         }
         model.addAttribute("errors", errorMessages);
-        model.addAttribute("query", this.mostRecentQuery);
         return "index";
     }
 
@@ -69,7 +65,7 @@ public class CalculationController {
      * For multiple phases in a whole journey, receive arrays of values instead of single values in multiple requests
      * -> 1 Request -> Each value in an array -> calculate results for each index-position in the arrays
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/calculate")
+    @RequestMapping(method = RequestMethod.POST, value = "/calculate")
     public String calculateResults(
             Model model,
             @RequestParam(name = "initialInvestment") @Min(0) double initialInvestment,
@@ -77,14 +73,9 @@ public class CalculationController {
             @RequestParam(name = "contributionFrequency") @MinIntElemValueConstraint(1) @MaxIntElemValueConstraint(12) List<Integer> contributionFrequency,
             @RequestParam(name = "annualGrowth") @MinDoubleElemValueConstraint(-100) @MaxDoubleElemValueConstraint(100) List<Double> annualGrowth,
             @RequestParam(name = "duration") @MinIntElemValueConstraint(1) @MaxIntElemValueConstraint(100) List<Integer> duration) {
-        for (double perContr : periodicContribution) {
-            System.out.println(perContr);
-        }
-        CalculationResult calculationResult = calculationService.calculateResults(initialInvestment, periodicContribution.get(0), contributionFrequency.get(0), annualGrowth.get(0), duration.get(0));
-        this.mostRecentQuery = new Query(initialInvestment, periodicContribution.get(0), contributionFrequency.get(0), annualGrowth.get(0), duration.get(0));
-        model.addAttribute("query", this.mostRecentQuery);
+        CalculationResult calculationResult = calculationService.calculatePhase(initialInvestment, periodicContribution.get(0), contributionFrequency.get(0), annualGrowth.get(0), duration.get(0));
         model.addAttribute("calculationResult", calculationResult);
-        return "index";
+        return "index::results";
     }
 
 }

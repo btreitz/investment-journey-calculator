@@ -15,10 +15,10 @@ class CalculationServiceTest {
 
     @Test
     void calculateResults() {
-        CalculationResult calculationResult = calculationService.calculateResults(2500, 500, 1, 10.0, 1);
+        CalculationResult calculationResult = calculationService.calculatePhase(2500, 500, 1, 10.0, 1);
         assertTrue(9070 <= calculationResult.getAnnualResultList()[0].getEndBalance() && calculationResult.getAnnualResultList()[0].getEndBalance() <= 9071);
 
-        calculationResult = calculationService.calculateResults(2500, 500, 3, 10.0, 10);
+        calculationResult = calculationService.calculatePhase(2500, 500, 3, 10.0, 10);
         assertTrue(40327 <= calculationResult.getTotalValue() && calculationResult.getTotalValue() <= 40328);
     }
 
