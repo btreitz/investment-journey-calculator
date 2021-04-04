@@ -28,7 +28,7 @@ public class CalculationService implements ICalculationService {
                     contributionFrequencyList.get(currPhaseIdx),
                     annualGrowthList.get(currPhaseIdx),
                     durationList.get(currPhaseIdx));
-            totalResult.getPhaseResultList()[currPhaseIdx] = phaseResult;
+            totalResult.getPhaseResultList()[currPhaseIdx] =  phaseResult;
             totalResult.addNewValues(phaseResult.getTotalPhaseContributions(), phaseResult.getTotalPhaseInterest());
             currPhaseStartBalance = phaseResult.getTotalPhaseValue();
             currPhaseStartYear += durationList.get(currPhaseIdx);

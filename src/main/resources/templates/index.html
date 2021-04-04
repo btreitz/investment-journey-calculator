@@ -4,114 +4,125 @@
     <title>Investment Journey Calculator</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<!-- ERROR HANDLING -->
-<div class="error-container" th:if="${errors != null}" th:fragment="error-container">
-    <ul th:each="errorMessage : ${errors}">
-        <li th:text="${errorMessage}"></li>
-    </ul>
+<div class="sticky-header">
+    <div class="header-content">Investment Journey Calculator</div>
 </div>
 
-<!-- BASIC PLAN -->
-<form method="POST" action="/calculate" id="form">
-    <div id="base-form">
-        <div class="flex-row">
+<div class="content-wrapper">
+
+    <!-- ERROR HANDLING -->
+    <div class="error-container" th:fragment="error-container" th:if="${errors != null}">
+        <ul th:each="errorMessage : ${errors}">
+            <li th:text="${errorMessage}"></li>
+        </ul>
+    </div>
+
+    <!-- BASIC PLAN -->
+    <form action="/calculate" id="form" method="POST">
+
+        <div class="form-input-wrapper">
             <label for="inInv">Initial Investment</label>
             <span class="input-element currency">
                 <input id="inInv" name="initialInvestment" placeholder="1000.0" required
                        th:min="0" type="number">
             </span>
         </div>
-        <div class="flex-row">
-            <label for="perContr">Periodic Contribution</label>
-            <span class="input-element currency">
-                <input id="perContr" name="periodicContribution" placeholder="100.0" required
-                       th:min="0" type="number">
-            </span>
+        <div class="phase">
+            <div class="phase-title">Phase 1</div>
+            <div class="form-input-wrapper part-of-phase">
+                <label for="perContr">Periodic Contribution</label>
+                <span class="input-element currency">
+                    <input id="perContr" name="periodicContribution" placeholder="100.0" required
+                           th:min="0" type="number">
+                </span>
+            </div>
+            <div class="form-input-wrapper part-of-phase">
+                <label for="contrFreq">Contribution Frequency</label>
+                <select id="contrFreq" name="contributionFrequency">
+                    <option selected th:text="Monthly" th:value="1"></option>
+                    <option th:text="Quarterly" th:value="3"></option>
+                    <option th:text="Semi-Annually" th:value="6"></option>
+                    <option th:text="Annually" th:value="12"></option>
+                </select>
+            </div>
+            <div class="form-input-wrapper part-of-phase">
+                <label for="annGrowth">Annual Growth</label>
+                <span class="input-element percentage">
+                    <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100"
+                           th:min="-100" type="number">
+                </span>
+            </div>
+            <div class="form-input-wrapper part-of-phase">
+                <label for="durat">Duration</label>
+                <span class="input-element years">
+                    <input id="durat" name="duration" placeholder="10" required th:max="100"
+                           th:min="1" type="number">
+                </span>
+            </div>
         </div>
-        <div class="flex-row">
-            <label for="contrFreq">Contribution Frequency</label>
-            <select id="contrFreq" name="contributionFrequency">
-                <option th:text="Monthly" th:value="1" selected></option>
-                <option th:text="Quarterly" th:value="3"></option>
-                <option th:text="Semi-Annually" th:value="6"></option>
-                <option th:text="Annually" th:value="12"></option>
-            </select>
+
+        <!-- ADDITIONAL PLANS IN JOURNEY -->
+        <!-- The additional plans are created dynamically by javascript at click of a button like "add" -->
+        <div id="additional-phases"></div>
+
+        <div class="buttons">
+            <div id="add-rm-buttons">
+                <button id="add-btn" th:onclick="addPhaseToForm()" type="button">Add investment phase</button>
+                <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button">Remove phase</button>
+            </div>
+
+            <input type="submit" value="Calculate">
         </div>
-        <div class="flex-row">
-            <label for="annGrowth">Annual Growth</label>
-            <span class="input-element percentage">
-                <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100"
-                       th:min="-100" type="number">
-            </span>
+    </form>
+
+    <!-- RESULTS -->
+    <div id="results" th:fragment="results">
+
+        <!-- RESULT OVERVIEW -->
+        <div class="total-overview" th:if="${totalResult != null}">
+            <div class="result-row"><span th:text="'Start Balance:'"></span><span
+                    th:text="${totalResult.getStartBalance()} + ' €'"></span></div>
+            <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
+                    th:text="${totalResult.getTotalValue()} + ' €'"></span></div>
+            <div class="result-row"><span th:text="'Total Contributions:'"></span><span
+                    th:text="${totalResult.getTotalContributions()} + ' €'"></span></div>
+            <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
+                    th:text="${totalResult.getTotalInterest()} + ' €'"></span></div>
         </div>
-        <div class="flex-row">
-            <label for="durat">Duration</label>
-            <span class="input-element years">
-                <input id="durat" name="duration" placeholder="10" required th:max="100"
-                       th:min="1" type="number">
-            </span>
-        </div>
+
+        <!-- RESULTS DETAIL -->
+        <table th:if="${totalResult != null}">
+            <div class="table-content">
+                <thead>
+                <tr>
+                    <th> Year</th>
+                    <th> Start Amount</th>
+                    <th> Annual Contribution</th>
+                    <th> Annual Interest</th>
+                    <th> End Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                <span th:each="phase : ${totalResult.getPhaseResultList()}">
+                    <tr th:each="annualResult : ${phase.getAnnualResultList()}">
+                    <td><span th:text="${annualResult.getYear()}"> Year </span></td>
+                    <td><span th:text="'€ ' + ${annualResult.getStartBalance()}"> Start Amount </span></td>
+                    <td><span th:text="'€ ' + ${annualResult.getAnnualContribution()}"> Annual Contribution </span></td>
+                    <td><span th:text="'€ ' + ${annualResult.getAnnualInterest()}"> Annual Interest </span></td>
+                    <td><span th:text="'€ ' + ${annualResult.getEndBalance()}"> End Balance </span></td>
+                </tr>
+                </span>
+                </tbody>
+            </div>
+        </table>
     </div>
-
-    <!-- ADDITIONAL PLANS IN JOURNEY -->
-    <!-- The additional plans are created dynamically by javascript at click of a button like "add" -->
-    <div id="additional-phases"></div>
-
-    <div id="add-rm-btns">
-        <button type="button" id="add-btn" th:onclick="addPhaseToForm()">Add investment phase</button>
-        <button type="button" id="rm-btn" th:onclick="removeLatestPhaseFromForm()" disabled>Remove phase</button>
-    </div>
-
-    <input type="submit" value="Submit">
-    <!-- <button type="button" th:onclick="submitForm()">Submit</button> -->
-</form>
-
-<!-- RESULTS -->
-<div id="results" th:fragment="results">
-
-    <!-- RESULT OVERVIEW -->
-    <div class="total-overview" th:if="${totalResult != null}">
-        <div class="result-row"><span th:text="'Start Balance:'"></span><span
-                th:text="${totalResult.getStartBalance()} + ' €'"></span></div>
-        <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
-                th:text="${totalResult.getTotalValue()} + ' €'"></span></div>
-        <div class="result-row"><span th:text="'Total Contributions:'"></span><span
-                th:text="${totalResult.getTotalContributions()} + ' €'"></span></div>
-        <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
-                th:text="${totalResult.getTotalInterest()} + ' €'"></span></div>
-    </div>
-
-    <!-- RESULTS DETAIL -->
-    <table th:if="${totalResult != null}">
-        <div class="table-content">
-            <thead>
-            <tr>
-                <th> Year</th>
-                <th> Start Amount</th>
-                <th> Annual Contribution</th>
-                <th> Annual Interest</th>
-                <th> End Balance</th>
-            </tr>
-            </thead>
-            <tbody>
-            <span th:each="phase : ${totalResult.getPhaseResultList()}">
-                <tr th:each="annualResult : ${phase.getAnnualResultList()}">
-                <td><span th:text="${annualResult.getYear()}"> Year </span></td>
-                <td><span th:text="'€ ' + ${annualResult.getStartBalance()}"> Start Amount </span></td>
-                <td><span th:text="'€ ' + ${annualResult.getAnnualContribution()}"> Annual Contribution </span></td>
-                <td><span th:text="'€ ' + ${annualResult.getAnnualInterest()}"> Annual Interest </span></td>
-                <td><span th:text="'€ ' + ${annualResult.getEndBalance()}"> End Balance </span></td>
-            </tr>
-            </span>
-            </tbody>
-        </div>
-    </table>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="application/javascript" th:src="@{/js/form.js}"></script>
+<script th:src="@{/js/form.js}" type="application/javascript"></script>
 </body>
 </html>
