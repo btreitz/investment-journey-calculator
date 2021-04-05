@@ -10,7 +10,7 @@
             success: function (resultFragment) {
                 $("#results").html(resultFragment);
                 convertAndDisplayTotal();
-                createCharts(getDataFromView());
+                createCharts(getDonutDataFromView(), getBarDataFromView());
 
             },
             error: function (errorFragment) {
@@ -22,7 +22,6 @@
 }(jQuery));
 
 function convertAndDisplayTotal() {
-
     function getAndDisplay(id) {
         const value = parseFloat(document.getElementById(id).innerHTML);
         document.getElementById(id + '-text-amount').innerText = value.toLocaleString('de-DE', {
@@ -34,24 +33,43 @@ function convertAndDisplayTotal() {
     ['final-investment-value', 'start-balance', 'total-contributions', 'total-interest'].forEach(id => {
         getAndDisplay(id);
     });
-
 }
 
-function getDataFromView() {
+function getDonutDataFromView() {
     const startBalance = document.getElementById('start-balance').innerHTML;
     const totalContributions = document.getElementById('total-contributions').innerHTML;
     const totalInterest = document.getElementById('total-interest').innerHTML;
     return [startBalance, totalContributions, totalInterest];
 }
 
-function createCharts(data) {
+function getBarDataFromView() {
+    let annualYears = [];
+    let annualContributions = [];
+    let annualInterests = [];
+    let annualEndBalances = [];
+    document.querySelectorAll('.annual-year-text').forEach(elem => annualYears.push(elem.innerHTML));
+    document.querySelectorAll('.annual-contribution-text').forEach(elem => annualContributions.push(elem.innerHTML));
+    document.querySelectorAll('.annual-interest-text').forEach(elem => annualInterests.push(elem.innerHTML));
+    document.querySelectorAll('.annual-end-balance-text').forEach(elem => annualEndBalances.push(elem.innerHTML));
+    const annualStartBalance = Array(annualYears.length).fill(document.getElementById('start-balance').innerHTML);
+    return { startBalances: annualStartBalance, years: annualYears, contributions: annualContributions, interests: annualInterests, endBalances: annualEndBalances };
+}
+
+
+function createCharts(donutData, barData) {
+    createDonutChart(donutData);
+    creatBarChart(barData);
+}
+
+function createDonutChart(data) {
+    const labels = ['Starting Balance', 'Own Contributions', 'Interest Earned'];
     const ctx = document.getElementById('donut-chart');
     const donutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Starting Balance', 'Own Contributions', 'Interest Earned'],
+            labels: labels,
             datasets: [{
-                label: 'Test donut chart',
+                label: 'Donut chart',
                 data: data,
                 backgroundColor: [
                     'rgba(54, 162, 235, 1)',
@@ -66,14 +84,88 @@ function createCharts(data) {
                 legend: {
                     position: 'bottom'
                 },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return labels[tooltipItem.dataIndex] + ': ' + tooltipItem.formattedValue + ' €'
+                        }
+                    }
+                },
                 title: {
                     display: true,
-                    text: 'Composition of final investment value',
+                    text: 'Composition of Final Investment Value',
                     font: {
                         size: 18,
                         family: "'Roboto', 'sans-serif'"
                     }
                 }
+            }
+        }
+    });
+}
+
+function creatBarChart(data) {
+    const ctx = document.getElementById('bar-chart');
+    const barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.years,
+            datasets: [{
+                label: 'Starting Balance',
+                data: data.startBalances,
+                borderWidth: 1,
+                backgroundColor: 'rgba(54, 162, 235, 0.8)'
+            },
+            {
+                label: 'Own Contributions',
+                data: data.contributions,
+                borderWidth: 1,
+                backgroundColor: 'rgba(255, 190, 26, 0.8)'
+            },
+            {
+                label: 'Interest Earned',
+                data: data.interests,
+                borderWidth: 1,
+                backgroundColor: 'rgba(51, 204, 51, 0.8)'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: true
+                },
+                x: {
+                    stacked: true
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Investment Growth per Year',
+                    font: {
+                        size: 18,
+                        family: "'Roboto', 'sans-serif'"
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.formattedValue + ' €'
+                        },
+                        footer: function (tooltipItems) {
+                            const totalValue = data.endBalances[tooltipItems[0].dataIndex];
+                            return 'Total Investment Value: ' + totalValue + ' €';
+                        },
+                    }
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
             }
         }
     });

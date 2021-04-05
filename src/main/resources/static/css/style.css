@@ -136,6 +136,11 @@ input[type=submit]:hover {
     color: grey;
 }
 
+table {
+    width: 100%;
+    margin-top: 30px;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -185,6 +190,8 @@ td {
 
 #results {
     margin-top: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 .result-row {
@@ -248,4 +255,8 @@ td {
 
 #total-interest-text-amount {
     color: #33cc33;
+}
+
+.bar-chart-container {
+    margin-top: 24px;
 }
