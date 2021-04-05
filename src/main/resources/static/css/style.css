@@ -136,23 +136,6 @@ input[type=submit]:hover {
     color: grey;
 }
 
-#results {
-    margin-top: 50px;
-}
-
-.result-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 5px 0;
-}
-
-.total-overview {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-}
-
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -198,4 +181,71 @@ td {
 
 #add-btn:hover, #rm-btn:hover:enabled {
     background-color: #e6e6e6;
+}
+
+#results {
+    margin-top: 12px;
+}
+
+.result-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.numbers-overview {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-right: 1px solid #f2f2f2;
+}
+
+.results-overview {
+    display: flex;
+    flex-direction: row;
+}
+
+.donut-chart-container {
+    padding-left: 20px;
+    width: 430px;
+}
+
+#data-placeholder {
+    visibility: hidden;
+}
+
+#final-investment-value-text-amount {
+    font-size: 35px;
+    font-weight: bold;
+    color: #0077b3;
+}
+
+#final-investment-value-text {
+    line-height: 35px;
+    text-align: center;
+    margin-top: 90px;
+}
+
+#rest-numbers {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.euro-amount {
+    font-size: 22px;
+}
+
+#start-balance-text-amount {
+    color: #36a2eb;
+}
+
+#total-contributions-text-amount {
+    color: #ffbe1a;
+}
+
+#total-interest-text-amount {
+    color: #33cc33;
 }

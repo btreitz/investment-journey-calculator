@@ -7,8 +7,11 @@
             url: formElem.attr('action'),
             type: formElem.attr('method'),
             data: formElem.serialize(),
-            success: function (tableFragment) {
-                $("#results").html(tableFragment);
+            success: function (resultFragment) {
+                $("#results").html(resultFragment);
+                convertAndDisplayTotal();
+                createCharts(getDataFromView());
+
             },
             error: function (errorFragment) {
                 $(".error-container").html(errorFragment);
@@ -17,6 +20,64 @@
     })
 
 }(jQuery));
+
+function convertAndDisplayTotal() {
+
+    function getAndDisplay(id) {
+        const value = parseFloat(document.getElementById(id).innerHTML);
+        document.getElementById(id + '-text-amount').innerText = value.toLocaleString('de-DE', {
+            style: "currency",
+            currency: "EUR"
+        });
+    }
+
+    ['final-investment-value', 'start-balance', 'total-contributions', 'total-interest'].forEach(id => {
+        getAndDisplay(id);
+    });
+
+}
+
+function getDataFromView() {
+    const startBalance = document.getElementById('start-balance').innerHTML;
+    const totalContributions = document.getElementById('total-contributions').innerHTML;
+    const totalInterest = document.getElementById('total-interest').innerHTML;
+    return [startBalance, totalContributions, totalInterest];
+}
+
+function createCharts(data) {
+    const ctx = document.getElementById('donut-chart');
+    const donutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Starting Balance', 'Own Contributions', 'Interest Earned'],
+            datasets: [{
+                label: 'Test donut chart',
+                data: data,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 190, 26, 1)',
+                    'rgba(51, 204, 51, 1)'
+                ],
+                hoverOffset: 6
+            }],
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Composition of final investment value',
+                    font: {
+                        size: 18,
+                        family: "'Roboto', 'sans-serif'"
+                    }
+                }
+            }
+        }
+    });
+}
 
 function addPhaseToForm() {
     const additionalPhasesBox = document.getElementById('additional-phases');

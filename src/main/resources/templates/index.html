@@ -82,16 +82,29 @@
     <!-- RESULTS -->
     <div id="results" th:fragment="results">
 
-        <!-- RESULT OVERVIEW -->
-        <div class="total-overview" th:if="${totalResult != null}">
-            <div class="result-row"><span th:text="'Start Balance:'"></span><span
-                    th:text="${totalResult.getStartBalance()} + ' €'"></span></div>
-            <div class="result-row"><span th:text="'Final Investment Value:'"></span><span
-                    th:text="${totalResult.getTotalValue()} + ' €'"></span></div>
-            <div class="result-row"><span th:text="'Total Contributions:'"></span><span
-                    th:text="${totalResult.getTotalContributions()} + ' €'"></span></div>
-            <div class="result-row"><span th:text="'Total Interest Earned:'"></span><span
-                    th:text="${totalResult.getTotalInterest()} + ' €'"></span></div>
+        <span id="data-placeholder" th:if="${totalResult != null}">
+            <span id="start-balance" th:text="${totalResult.getStartBalance()}"></span>
+            <span id="final-investment-value" th:text="${totalResult.getTotalValue()}"></span>
+            <span id="total-contributions" th:text="${totalResult.getTotalContributions()}"></span>
+            <span id="total-interest" th:text="${totalResult.getTotalInterest()}"></span>
+        </span>
+
+        <div class="results-overview">
+            <!-- RESULT OVERVIEW -->
+            <div class="numbers-overview" th:if="${totalResult != null}">
+                <p id="final-investment-value-text">
+                    The total value of your investment will be<br>
+                    <span id="final-investment-value-text-amount"></span>
+                </p>
+                <div id="rest-numbers">
+                    <p id="start-balance-text">Starting Balance: <span id="start-balance-text-amount" class="euro-amount"></span></p>
+                    <p id="total-contributions-text">Own Contributions: <span id="total-contributions-text-amount" class="euro-amount"></span></p>
+                    <p id="total-interest-text">Interest Earned: <span id="total-interest-text-amount" class="euro-amount"></span></p>
+                </div>
+            </div>
+            <div class="donut-chart-container">
+                <canvas id="donut-chart"></canvas>
+            </div>
         </div>
 
         <!-- RESULTS DETAIL -->
@@ -123,6 +136,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/js/form.js}" type="application/javascript"></script>
 </body>
 </html>
