@@ -110,12 +110,15 @@ function creatBarChart(data) {
         type: 'bar',
         data: {
             labels: data.years,
-            datasets: [{
+            datasets: [
+            /*
+            {
                 label: 'Starting Balance',
                 data: data.startBalances,
                 borderWidth: 1,
                 backgroundColor: 'rgba(54, 162, 235, 0.8)'
             },
+             */
             {
                 label: 'Own Contributions',
                 data: data.contributions,
