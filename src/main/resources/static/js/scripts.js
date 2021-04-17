@@ -22,6 +22,7 @@
 }(jQuery));
 
 function convertAndDisplayTotal() {
+
     function getAndDisplay(id) {
         const value = parseFloat(document.getElementById(id).innerHTML);
         document.getElementById(id + '-text-amount').innerText = value.toLocaleString('de-DE', {
@@ -76,7 +77,7 @@ function createDonutChart(data) {
                     'rgba(255, 190, 26, 1)',
                     'rgba(51, 204, 51, 1)'
                 ],
-                hoverOffset: 6
+                hoverOffset: 4
             }],
         },
         options: {
@@ -133,10 +134,24 @@ function creatBarChart(data) {
             }]
         },
         options: {
+            datasets: {
+              bar: {
+                  maxBarThickness: 60,
+              }
+            },
             scales: {
                 y: {
                     beginAtZero: true,
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return parseFloat(value).toLocaleString('de-DE', {
+                                style: "currency",
+                                currency: "EUR"
+                            });
+                        }
+                    }
                 },
                 x: {
                     stacked: true
@@ -156,13 +171,43 @@ function creatBarChart(data) {
                 },
                 tooltip: {
                     callbacks: {
+                        beforeTitle: function (tooltipItem) {
+                            return 'In the year ' + tooltipItem[0].label + ',';
+                        },
+                        title: function (tooltipItem) {
+                            let sum = 0;
+                            for (let item of tooltipItem) {
+                                sum += item.parsed.y;
+                            }
+                            const sumFormatted = sum.toLocaleString('de-DE', {
+                                style: "currency",
+                                currency: "EUR"
+                            });
+                            return 'the growth is ' + sumFormatted;
+                        },
                         label: function (tooltipItem) {
                             return tooltipItem.dataset.label + ': ' + tooltipItem.formattedValue + ' €'
                         },
                         footer: function (tooltipItems) {
-                            const totalValue = data.endBalances[tooltipItems[0].dataIndex];
-                            return 'Total Investment Value: ' + totalValue + ' €';
+                            const totalValue = parseFloat(data.endBalances[tooltipItems[0].dataIndex]);
+                            const formattedValue = totalValue.toLocaleString('de-DE', {
+                                style: "currency",
+                                currency: "EUR"
+                            });
+                            return 'Total Investment Value: ' + formattedValue;
                         },
+                    },
+                    titleFont: {
+                        size: 14,
+                        weight: 'normal'
+                    },
+                    labelFont: {
+                        size: 14,
+                        weight: 'normal'
+                    },
+                    footerFont: {
+                        size: 14,
+                        weight: 'normal'
                     }
                 }
             },
