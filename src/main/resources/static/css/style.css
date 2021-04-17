@@ -104,12 +104,13 @@ input:focus {
 }
 
 input[type=submit] {
-    padding: 4px 12px;
+    padding: 4px 50px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #0077b3;
     color: white;
+    font-size: 14px;
 }
 
 input[type=submit]:hover {
@@ -135,20 +136,6 @@ input[type=submit]:hover {
     float: right;
     content: "%";
     color: grey;
-}
-
-table {
-    width: 100%;
-    margin-top: 30px;
-}
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-td {
-    padding: 8px;
 }
 
 .error-container {

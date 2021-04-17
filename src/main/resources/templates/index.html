@@ -4,6 +4,7 @@
     <title>Investment Journey Calculator</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/tableStyles.css}"/>
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
@@ -22,7 +23,7 @@
     </div>
 
     <!-- BASIC PLAN -->
-    <form action="/calculate" id="form" method="POST" autocomplete="off">
+    <form action="/calculate" autocomplete="off" id="form" method="POST">
 
         <div class="form-input-wrapper">
             <label for="inInv">Initial Investment</label>
@@ -72,7 +73,8 @@
         <div class="buttons">
             <div id="add-rm-buttons">
                 <button id="add-btn" th:onclick="addPhaseToForm()" type="button">Add investment phase</button>
-                <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button">Remove phase</button>
+                <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button">Remove phase
+                </button>
             </div>
 
             <input type="submit" value="Calculate">
@@ -97,9 +99,12 @@
                     <span id="final-investment-value-text-amount"></span>
                 </p>
                 <div id="rest-numbers">
-                    <p id="start-balance-text" class="rest-number-field">Starting Balance: <span id="start-balance-text-amount" class="euro-amount"></span></p>
-                    <p id="total-contributions-text" class="rest-number-field">Own Contributions: <span id="total-contributions-text-amount" class="euro-amount"></span></p>
-                    <p id="total-interest-text" class="rest-number-field">Interest Earned: <span id="total-interest-text-amount" class="euro-amount"></span></p>
+                    <p class="rest-number-field" id="start-balance-text">Starting Balance: <span
+                            class="euro-amount" id="start-balance-text-amount"></span></p>
+                    <p class="rest-number-field" id="total-contributions-text">Own Contributions: <span
+                            class="euro-amount" id="total-contributions-text-amount"></span></p>
+                    <p class="rest-number-field" id="total-interest-text">Interest Earned: <span
+                            class="euro-amount" id="total-interest-text-amount"></span></p>
                 </div>
             </div>
             <div class="donut-chart-container">
@@ -112,6 +117,7 @@
         </div>
 
         <!-- RESULTS DETAIL -->
+        <!--
         <table th:if="${totalResult != null}">
             <div class="table-content">
                 <thead>
@@ -126,12 +132,44 @@
                 <tbody>
                 <span th:each="phase : ${totalResult.getPhaseResultList()}">
                     <tr th:each="annualResult : ${phase.getAnnualResultList()}">
-                    <td><span class="annual-year-text" th:text="${annualResult.getYear()}"> Year </span></td>
-                    <td>€ <span class="annual-start-balance-text" th:text="${annualResult.getStartBalance()}"></span></td>
-                    <td>€ <span class="annual-contribution-text" th:text="${annualResult.getAnnualContribution()}"></span></td>
-                    <td>€ <span class="annual-interest-text" th:text="${annualResult.getAnnualInterest()}"></span></td>
-                    <td>€ <span class="annual-end-balance-text" th:text="${annualResult.getEndBalance()}"></span></td>
+                        <td><span class="annual-year-text" th:text="${annualResult.getYear()}"> Year </span></td>
+                        <td>€ <span class="annual-start-balance-text"
+                                    th:text="${annualResult.getStartBalance()}"></span></td>
+                        <td>€ <span class="annual-contribution-text"
+                                    th:text="${annualResult.getAnnualContribution()}"></span></td>
+                        <td>€ <span class="annual-interest-text"
+                                    th:text="${annualResult.getAnnualInterest()}"></span></td>
+                        <td>€ <span class="annual-end-balance-text"
+                                    th:text="${annualResult.getEndBalance()}"></span></td>
+                    </tr>
+                </span>
+                </tbody>
+            </div>
+        </table> -->
+        <table th:if="${totalResult != null}">
+            <div class="table-content">
+                <thead>
+                <tr class="table100-head">
+                    <th class="column1"> Year</th>
+                    <th class="column2"> Start Amount</th>
+                    <th class="column3"> Annual Contribution</th>
+                    <th class="column4"> Annual Interest</th>
+                    <th class="column5"> End Balance</th>
                 </tr>
+                </thead>
+                <tbody>
+                <span th:each="phase : ${totalResult.getPhaseResultList()}">
+                    <tr th:each="annualResult : ${phase.getAnnualResultList()}">
+                        <td class="column1"><span class="annual-year-text" th:text="${annualResult.getYear()}"> Year </span></td>
+                        <td class="column2">€ <span class="annual-start-balance-text"
+                                    th:text="${annualResult.getStartBalance()}"></span></td>
+                        <td class="column3">€ <span class="annual-contribution-text"
+                                    th:text="${annualResult.getAnnualContribution()}"></span></td>
+                        <td class="column4">€ <span class="annual-interest-text"
+                                    th:text="${annualResult.getAnnualInterest()}"></span></td>
+                        <td class="column5">€ <span class="annual-end-balance-text"
+                                    th:text="${annualResult.getEndBalance()}"></span></td>
+                    </tr>
                 </span>
                 </tbody>
             </div>
