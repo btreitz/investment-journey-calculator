@@ -83,21 +83,29 @@ function createDonutChart(data) {
         options: {
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "'Roboto', 'sans-serif'",
+                        }
+                    }
                 },
                 tooltip: {
                     callbacks: {
                         label: function(tooltipItem) {
                             return labels[tooltipItem.dataIndex] + ': ' + tooltipItem.formattedValue + ' €'
                         }
-                    }
+                    },
+                    bodySpacing: 4
                 },
                 title: {
                     display: true,
                     text: 'Composition of Final Investment Value',
                     font: {
                         size: 18,
-                        family: "'Roboto', 'sans-serif'"
+                        family: "'Roboto', 'sans-serif'",
+                        weight: 'normal'
                     }
                 }
             }
@@ -159,20 +167,27 @@ function creatBarChart(data) {
             },
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "'Roboto', 'sans-serif'",
+                        }
+                    }
                 },
                 title: {
                     display: true,
                     text: 'Investment Growth per Year',
                     font: {
                         size: 18,
-                        family: "'Roboto', 'sans-serif'"
+                        family: "'Roboto', 'sans-serif'",
+                        weight: 'normal'
                     }
                 },
                 tooltip: {
                     callbacks: {
                         beforeTitle: function (tooltipItem) {
-                            return 'In the year ' + tooltipItem[0].label + ',';
+                            return 'In ' + tooltipItem[0].label + ',';
                         },
                         title: function (tooltipItem) {
                             let sum = 0;
@@ -208,7 +223,8 @@ function creatBarChart(data) {
                     footerFont: {
                         size: 14,
                         weight: 'normal'
-                    }
+                    },
+                    bodySpacing: 4
                 }
             },
             interaction: {
