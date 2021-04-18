@@ -48,14 +48,13 @@ function getBarDataFromView() {
     let annualContributions = [];
     let annualInterests = [];
     let annualEndBalances = [];
-    document.querySelectorAll('.annual-year-text').forEach(elem => annualYears.push(elem.innerHTML));
-    document.querySelectorAll('.annual-contribution-text').forEach(elem => annualContributions.push(elem.innerHTML));
-    document.querySelectorAll('.annual-interest-text').forEach(elem => annualInterests.push(elem.innerHTML));
-    document.querySelectorAll('.annual-end-balance-text').forEach(elem => annualEndBalances.push(elem.innerHTML));
+    document.querySelectorAll('.hidden-annual-year-text').forEach(elem => annualYears.push(elem.innerHTML));
+    document.querySelectorAll('.hidden-annual-contribution-text').forEach(elem => annualContributions.push(elem.innerHTML));
+    document.querySelectorAll('.hidden-annual-interest-text').forEach(elem => annualInterests.push(elem.innerHTML));
+    document.querySelectorAll('.hidden-annual-end-balance-text').forEach(elem => annualEndBalances.push(elem.innerHTML));
     const annualStartBalance = Array(annualYears.length).fill(document.getElementById('start-balance').innerHTML);
     return { startBalances: annualStartBalance, years: annualYears, contributions: annualContributions, interests: annualInterests, endBalances: annualEndBalances };
 }
-
 
 function createCharts(donutData, barData) {
     createDonutChart(donutData);

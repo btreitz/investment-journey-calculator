@@ -44,7 +44,6 @@ tbody tr:nth-child(even) {
 
 tbody tr {
     font-size: 14px;
-    color: gray;
     line-height: 1.2;
 }
 
