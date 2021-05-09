@@ -162,13 +162,13 @@
                     <tr th:each="annualResult : ${phase.getAnnualResultList()}">
                         <td class="column1"><span class="hidden hidden-annual-year-text" th:text="${annualResult.getYear()}"></span><span class="annual-year-text" th:text="${annualResult.getYear()}"></span></td>
                         <td class="column2"><span class="hidden hidden-annual-start-balance-text" th:text="${annualResult.getStartBalance()}"></span><span class="annual-start-balance-text"
-                                    th:text="${#numbers.formatDecimal(annualResult.getStartBalance(), 0, 'POINT', 2, 'COMMA')}"></span> €</td>
+                                    th:text="${#numbers.formatDecimal(annualResult.getStartBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                         <td class="column3"><span class="hidden hidden-annual-contribution-text" th:text="${annualResult.getAnnualContribution()}"></span><span class="annual-contribution-text"
-                                    th:text="${#numbers.formatDecimal(annualResult.getAnnualContribution(), 0, 'POINT', 2, 'COMMA')}"></span> €</td>
+                                    th:text="${#numbers.formatDecimal(annualResult.getAnnualContribution(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                         <td class="column4"><span class="hidden hidden-annual-interest-text" th:text="${annualResult.getAnnualInterest()}"></span><span class="annual-interest-text"
-                                    th:text="${#numbers.formatDecimal(annualResult.getAnnualInterest(), 0, 'POINT', 2, 'COMMA')}"></span> €</td>
+                                    th:text="${#numbers.formatDecimal(annualResult.getAnnualInterest(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                         <td class="column5"><span class="hidden hidden-annual-end-balance-text" th:text="${annualResult.getEndBalance()}"></span><span class="annual-end-balance-text"
-                                    th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 0, 'POINT', 2, 'COMMA')}"></span> €</td>
+                                    th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                     </tr>
                 </span>
                 </tbody>
