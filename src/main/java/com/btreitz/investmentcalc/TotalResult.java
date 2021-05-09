@@ -1,5 +1,6 @@
 package com.btreitz.investmentcalc;
 
+import com.btreitz.investmentcalc.utils.CalculationUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +25,8 @@ public class TotalResult {
     }
 
     public void addNewValues(double newContribution, double newInterest) {
-        this.totalContributions += newContribution;
-        this.totalInterest += newInterest;
+        this.totalContributions = CalculationUtils.trimDoubleToDecimalPrecision(2, this.totalContributions + newContribution);
+        this.totalInterest = CalculationUtils.trimDoubleToDecimalPrecision(2, this.totalInterest + newInterest);
     }
 
 }

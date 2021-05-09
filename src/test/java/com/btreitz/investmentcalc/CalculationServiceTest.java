@@ -46,4 +46,5 @@ class CalculationServiceTest {
         assertTrue(57600 <= totalResult.getTotalContributions() && totalResult.getTotalContributions() <= 57601);
         assertTrue(21635 <= totalResult.getTotalInterest() && totalResult.getTotalInterest() <= 21636);
     }
+
 }
