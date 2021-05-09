@@ -54,7 +54,6 @@ tbody tr:hover {
 }
 
 .column1 {
-    padding-left: 40px;
     text-align: left;
 }
 
@@ -72,16 +71,21 @@ tbody tr:hover {
 
 .column5 {
     text-align: right;
-    padding-right: 40px;
 }
 
-@media screen and (max-width: 992px) {
+@media (max-width: 980px) {
     table {
-        display: block
+        display: table;
     }
 
-    table > *, table tr, table td, table th {
-        display: block
+    table tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    table td {
+        display: flex;
+        flex-direction: row;
     }
 
     table thead {
@@ -90,11 +94,11 @@ tbody tr:hover {
 
     table tbody tr {
         height: auto;
-        padding: 37px 0
+        padding: 37px 0;
+        font-size: 30px;
     }
 
     table tbody tr td {
-        padding-left: 40% !important;
         margin-bottom: 24px
     }
 
@@ -103,11 +107,8 @@ tbody tr:hover {
     }
 
     table tbody tr td:before {
-        font-size: 14px;
+        font-size: 30px;
         color: #999;
-        line-height: 1.2;
-        position: absolute;
-        width: 40%;
         left: 30px;
         top: 0
     }
@@ -133,7 +134,7 @@ tbody tr:hover {
     }
 
 
-    .column4, .column5 {
+    .column2, .column3, .column4, .column5 {
         text-align: left
     }
 
@@ -141,14 +142,8 @@ tbody tr:hover {
         width: 100%
     }
 
-    tbody tr {
-        font-size: 14px
+    .rsText {
+        margin-left: auto;
     }
-}
 
-@media (max-width: 576px) {
-    .container-table100 {
-        padding-left: 15px;
-        padding-right: 15px
-    }
 }

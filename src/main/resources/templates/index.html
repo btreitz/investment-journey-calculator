@@ -117,35 +117,6 @@
         </div>
 
         <!-- RESULTS DETAIL -->
-        <!--
-        <table th:if="${totalResult != null}">
-            <div class="table-content">
-                <thead>
-                <tr>
-                    <th> Year</th>
-                    <th> Start Amount</th>
-                    <th> Annual Contribution</th>
-                    <th> Annual Interest</th>
-                    <th> End Balance</th>
-                </tr>
-                </thead>
-                <tbody>
-                <span th:each="phase : ${totalResult.getPhaseResultList()}">
-                    <tr th:each="annualResult : ${phase.getAnnualResultList()}">
-                        <td><span class="annual-year-text" th:text="${annualResult.getYear()}"> Year </span></td>
-                        <td>€ <span class="annual-start-balance-text"
-                                    th:text="${annualResult.getStartBalance()}"></span></td>
-                        <td>€ <span class="annual-contribution-text"
-                                    th:text="${annualResult.getAnnualContribution()}"></span></td>
-                        <td>€ <span class="annual-interest-text"
-                                    th:text="${annualResult.getAnnualInterest()}"></span></td>
-                        <td>€ <span class="annual-end-balance-text"
-                                    th:text="${annualResult.getEndBalance()}"></span></td>
-                    </tr>
-                </span>
-                </tbody>
-            </div>
-        </table> -->
         <table th:if="${totalResult != null}">
             <div class="table-content">
                 <thead>
@@ -160,14 +131,14 @@
                 <tbody>
                 <span th:each="phase : ${totalResult.getPhaseResultList()}">
                     <tr th:each="annualResult : ${phase.getAnnualResultList()}">
-                        <td class="column1"><span class="hidden hidden-annual-year-text" th:text="${annualResult.getYear()}"></span><span class="annual-year-text" th:text="${annualResult.getYear()}"></span></td>
-                        <td class="column2"><span class="hidden hidden-annual-start-balance-text" th:text="${annualResult.getStartBalance()}"></span><span class="annual-start-balance-text"
+                        <td class="column1"><span class="hidden hidden-annual-year-text" th:text="${annualResult.getYear()}"></span><span class="annual-year-text rsText" th:text="${annualResult.getYear()}"></span></td>
+                        <td class="column2"><span class="hidden hidden-annual-start-balance-text" th:text="${annualResult.getStartBalance()}"></span><span class="annual-start-balance-text rsText"
                                     th:text="${#numbers.formatDecimal(annualResult.getStartBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
-                        <td class="column3"><span class="hidden hidden-annual-contribution-text" th:text="${annualResult.getAnnualContribution()}"></span><span class="annual-contribution-text"
+                        <td class="column3"><span class="hidden hidden-annual-contribution-text" th:text="${annualResult.getAnnualContribution()}"></span><span class="annual-contribution-text rsText"
                                     th:text="${#numbers.formatDecimal(annualResult.getAnnualContribution(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
-                        <td class="column4"><span class="hidden hidden-annual-interest-text" th:text="${annualResult.getAnnualInterest()}"></span><span class="annual-interest-text"
+                        <td class="column4"><span class="hidden hidden-annual-interest-text" th:text="${annualResult.getAnnualInterest()}"></span><span class="annual-interest-text rsText"
                                     th:text="${#numbers.formatDecimal(annualResult.getAnnualInterest(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
-                        <td class="column5"><span class="hidden hidden-annual-end-balance-text" th:text="${annualResult.getEndBalance()}"></span><span class="annual-end-balance-text"
+                        <td class="column5"><span class="hidden hidden-annual-end-balance-text" th:text="${annualResult.getEndBalance()}"></span><span class="annual-end-balance-text rsText"
                                     th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                     </tr>
                 </span>

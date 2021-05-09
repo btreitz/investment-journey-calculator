@@ -323,3 +323,11 @@ input[type=submit]:hover {
 .bar-chart-container {
     margin-top: 24px;
 }
+
+@media  (max-width: 1040px) {
+
+    .content-wrapper {
+        width: 96%;
+    }
+
+}
