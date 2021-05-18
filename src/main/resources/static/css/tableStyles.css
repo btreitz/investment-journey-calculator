@@ -94,12 +94,12 @@ tbody tr:hover {
 
     table tbody tr {
         height: auto;
-        padding: 37px 0;
+        padding: 13px 13px;
         font-size: 30px;
     }
 
     table tbody tr td {
-        margin-bottom: 24px
+        margin-bottom: 13px
     }
 
     table tbody tr td:last-child {
@@ -108,13 +108,23 @@ tbody tr:hover {
 
     table tbody tr td:before {
         font-size: 30px;
-        color: #999;
         left: 30px;
         top: 0
     }
 
-    table tbody tr td:nth-child(1):before {
-        content: "Year"
+    table tbody tr:nth-child(1) {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    table tbody tr:nth-last-child(1) {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    table tbody tr td:nth-child(1) {
+        font-size: 33px;
+        font-weight: bold;
     }
 
     table tbody tr td:nth-child(2):before {
@@ -134,12 +144,10 @@ tbody tr:hover {
     }
 
 
-    .column2, .column3, .column4, .column5 {
-        text-align: left
-    }
-
-    .column4, .column5 .column1, .column2, .column3 {
-        width: 100%
+    .column1, .column2, .column3, .column4, .column5 {
+        text-align: left;
+        padding: 0;
+        width: 100%;
     }
 
     .rsText {

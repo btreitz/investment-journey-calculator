@@ -131,7 +131,9 @@
                 <tbody>
                 <span th:each="phase : ${totalResult.getPhaseResultList()}">
                     <tr th:each="annualResult : ${phase.getAnnualResultList()}">
-                        <td class="column1"><span class="hidden hidden-annual-year-text" th:text="${annualResult.getYear()}"></span><span class="annual-year-text rsText" th:text="${annualResult.getYear()}"></span></td>
+                        <td class="column1"><span class="hidden hidden-annual-year-text"
+                                                  th:text="${annualResult.getYear()}"></span><span
+                                class="annual-year-text" th:text="${annualResult.getYear()}"></span></td>
                         <td class="column2"><span class="hidden hidden-annual-start-balance-text" th:text="${annualResult.getStartBalance()}"></span><span class="annual-start-balance-text rsText"
                                     th:text="${#numbers.formatDecimal(annualResult.getStartBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                         <td class="column3"><span class="hidden hidden-annual-contribution-text" th:text="${annualResult.getAnnualContribution()}"></span><span class="annual-contribution-text rsText"
