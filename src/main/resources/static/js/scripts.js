@@ -64,6 +64,8 @@ function createCharts(donutData, barData) {
 function createDonutChart(data) {
     const labels = ['Starting Balance', 'Own Contributions', 'Interest Earned'];
     const ctx = document.getElementById('donut-chart');
+    const windowWidth = window.innerWidth;
+    console.log("WindowWidth: ", windowWidth);
     const donutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -119,14 +121,6 @@ function creatBarChart(data) {
         data: {
             labels: data.years,
             datasets: [
-            /*
-            {
-                label: 'Starting Balance',
-                data: data.startBalances,
-                borderWidth: 1,
-                backgroundColor: 'rgba(54, 162, 235, 0.8)'
-            },
-             */
             {
                 label: 'Own Contributions',
                 data: data.contributions,
@@ -141,10 +135,13 @@ function creatBarChart(data) {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: 2,
             datasets: {
-              bar: {
-                  maxBarThickness: 60,
-              }
+                bar: {
+                    maxBarThickness: 60,
+                }
             },
             scales: {
                 y: {

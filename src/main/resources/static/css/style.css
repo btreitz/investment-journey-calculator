@@ -205,7 +205,7 @@ input[type=submit]:hover {
 }
 
 .donut-chart-container {
-    width: 400px;
+    max-width: 400px;
 }
 
 #data-placeholder {
@@ -324,7 +324,39 @@ input[type=submit]:hover {
     margin-top: 24px;
 }
 
-@media  (max-width: 1040px) {
+@media (max-width: 515px) {
+
+    #add-rm-buttons {
+        flex-direction: column;
+    }
+
+    #rest-numbers {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 925px) {
+
+    .phase {
+        flex-direction: column;
+    }
+
+    .results-overview {
+        flex-direction: column;
+    }
+
+    .numbers-overview {
+        border-right: none;
+    }
+
+    .donut-chart-container {
+        margin: 0 auto;
+    }
+
+}
+
+@media (max-width: 1040px) {
 
     .content-wrapper {
         width: 96%;
