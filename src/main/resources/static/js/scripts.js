@@ -136,7 +136,7 @@ function creatBarChart(data) {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             aspectRatio: 2,
             datasets: {
                 bar: {

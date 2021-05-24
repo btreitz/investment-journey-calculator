@@ -73,9 +73,8 @@
 
         <div class="buttons">
             <div id="add-rm-buttons">
-                <button id="add-btn" th:onclick="addPhaseToForm()" type="button">Add investment phase</button>
-                <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button">Remove phase
-                </button>
+                <button id="add-btn" th:onclick="addPhaseToForm()" type="button"></button>
+                <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button"></button>
             </div>
 
             <input type="submit" value="Calculate">
@@ -100,21 +99,22 @@
                     <span id="final-investment-value-text-amount"></span>
                 </p>
                 <div id="rest-numbers">
-                    <p class="rest-number-field" id="start-balance-text">Starting Balance: <span
+                    <p class="rest-number-field" id="start-balance-text">Starting Balance: <br><span
                             class="euro-amount" id="start-balance-text-amount"></span></p>
-                    <p class="rest-number-field" id="total-contributions-text">Own Contributions: <span
+                    <p class="rest-number-field" id="total-contributions-text">Own Contributions: <br><span
                             class="euro-amount" id="total-contributions-text-amount"></span></p>
-                    <p class="rest-number-field" id="total-interest-text">Interest Earned: <span
+                    <p class="rest-number-field" id="total-interest-text">Interest Earned: <br><span
                             class="euro-amount" id="total-interest-text-amount"></span></p>
                 </div>
             </div>
-            <div class="donut-chart-container">
+            <div class="donut-chart-container" th:if="${totalResult != null}">
                 <canvas id="donut-chart"></canvas>
             </div>
         </div>
 
-        <div class="bar-chart-container">
+        <div class="bar-chart-container" th:if="${totalResult != null}">
             <canvas id="bar-chart"></canvas>
+            <div id="canvas-info"></div>
         </div>
 
         <!-- RESULTS DETAIL -->
