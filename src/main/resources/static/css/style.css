@@ -59,6 +59,11 @@ form {
     padding: 14px 7px;
 }
 
+.all-phases {
+    display: flex;
+    flex-direction: column;
+}
+
 .phase-title {
     font-size: 17px;
     width: 90px;
@@ -146,8 +151,6 @@ input[type=submit]:hover {
     padding: 15px;
     margin-bottom: 20px;
 }
-
-.additional-phase {}
 
 .buttons {
     display: flex;
@@ -383,6 +386,19 @@ input[type=submit]:hover {
 
     .phase {
         flex-direction: column;
+        padding: 0 14px 14px 14px;
+        margin-top: 0;
+    }
+
+    .input-element, select {
+        width: 100%;
+    }
+
+    .all-phases {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 7px;
+        margin-top: 13px;
     }
 
     .results-overview {
