@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/tableStyles.css}"/>
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
 <body>
 <div class="sticky-header">
@@ -18,15 +19,37 @@
 
     <!-- INFO COLLAPSIBLE -->
     <div class="wrap-collapsible">
-        <input id="collapsible" class="toggle" type="checkbox">
-        <label for="collapsible" class="lbl-toggle">&#x1F6C8; Information </label>
+        <input class="toggle" id="collapsible" type="checkbox">
+        <label class="lbl-toggle" for="collapsible">
+            <span class="material-icons-outlined">info</span>
+            <span class="info-txt">Information</span>
+        </label>
         <div class="collapsible-content">
             <div class="content-inner">
-                <p>
-                    QUnit is by calling one of the object that are embedded in JavaScript, and faster JavaScript program could also used with
-                    its elegant, well documented, and functional programming using JS, HTML pages Modernizr is a popular browsers without
-                    plug-ins. Test-Driven Development.
-                </p>
+                <span>
+                    Using the investment calculator you calculate how much your investments will grow over a period of time.
+                    The parameters which have an impact on the final investment value are the initial investment, periodic contributions,
+                    the contribution frequency, the expected growth and the duration. Due to the factored in compound interest, the investment value grows exponentially over time.
+                    <!-- Now tak about why there are phases -->
+                </span>
+                <br>
+                <spa>
+                    <ul>
+                        <li><b>Initial Investment</b> - The initial amount of money you start your investment journey
+                            with
+                        </li>
+                        <li><b>Periodic Contribution</b> - The amount of money you want to add to your investments in
+                            the specified contribution frequency
+                        </li>
+                        <li><b>Contribution Frequency</b> - How often you want to contribute the specified periodic
+                            contribution
+                        </li>
+                        <li><b>Annual Growth</b> - The expected rate at which your investments grow annually (e.g. MSCI
+                            World: 8,08 % in the past 10 years)
+                        </li>
+                        <li><b>Duration</b> - The amount of years you plan to follow this investment phase</li>
+                    </ul>
+                    </span>
             </div>
         </div>
     </div>
@@ -153,14 +176,22 @@
                         <td class="column1"><span class="hidden hidden-annual-year-text"
                                                   th:text="${annualResult.getYear()}"></span><span
                                 class="annual-year-text" th:text="${annualResult.getYear()}"></span></td>
-                        <td class="column2"><span class="hidden hidden-annual-start-balance-text" th:text="${annualResult.getStartBalance()}"></span><span class="annual-start-balance-text rsText"
-                                    th:text="${#numbers.formatDecimal(annualResult.getStartBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
-                        <td class="column3"><span class="hidden hidden-annual-contribution-text" th:text="${annualResult.getAnnualContribution()}"></span><span class="annual-contribution-text rsText"
-                                    th:text="${#numbers.formatDecimal(annualResult.getAnnualContribution(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
-                        <td class="column4"><span class="hidden hidden-annual-interest-text" th:text="${annualResult.getAnnualInterest()}"></span><span class="annual-interest-text rsText"
-                                    th:text="${#numbers.formatDecimal(annualResult.getAnnualInterest(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
-                        <td class="column5"><span class="hidden hidden-annual-end-balance-text" th:text="${annualResult.getEndBalance()}"></span><span class="annual-end-balance-text rsText"
-                                    th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
+                        <td class="column2"><span class="hidden hidden-annual-start-balance-text"
+                                                  th:text="${annualResult.getStartBalance()}"></span><span
+                                class="annual-start-balance-text rsText"
+                                th:text="${#numbers.formatDecimal(annualResult.getStartBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
+                        <td class="column3"><span class="hidden hidden-annual-contribution-text"
+                                                  th:text="${annualResult.getAnnualContribution()}"></span><span
+                                class="annual-contribution-text rsText"
+                                th:text="${#numbers.formatDecimal(annualResult.getAnnualContribution(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
+                        <td class="column4"><span class="hidden hidden-annual-interest-text"
+                                                  th:text="${annualResult.getAnnualInterest()}"></span><span
+                                class="annual-interest-text rsText"
+                                th:text="${#numbers.formatDecimal(annualResult.getAnnualInterest(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
+                        <td class="column5"><span class="hidden hidden-annual-end-balance-text"
+                                                  th:text="${annualResult.getEndBalance()}"></span><span
+                                class="annual-end-balance-text rsText"
+                                th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                     </tr>
                 </span>
                 </tbody>

@@ -43,13 +43,22 @@ body {
 
 .lbl-toggle {
     display: block;
-    font-size: 1.2rem;
     color: #8c8c8c;
     background-color: #f2f2f2;
     padding: 7px;
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.25s ease-out;
+}
+
+.material-icons-outlined {
+    vertical-align: bottom;
+}
+
+.info-txt {
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 6px;
 }
 
 .lbl-toggle::after {
@@ -59,7 +68,6 @@ body {
     border-bottom: 5px solid transparent;
     border-left: 5px solid currentColor;
     vertical-align: middle;
-    margin-right: .7rem;
     transform: translateY(-2px);
     transition: transform .2s ease-out;
 }
@@ -68,13 +76,14 @@ body {
     background-color: #f2f2f2;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: .5rem 1rem;
+    padding: 0 14px 7px 14px;
+    font-size: 14px;
 }
 
 .collapsible-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height .25s ease-in-out;
+    transition: max-height .20s ease-in-out;
 }
 
 .lbl-toggle:hover {
@@ -92,6 +101,10 @@ body {
 .toggle:checked + .lbl-toggle {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+.collapsible-content ul {
+    line-height: 22px;
 }
 
 form {
