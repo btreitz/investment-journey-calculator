@@ -64,6 +64,7 @@ function createCharts(donutData, barData) {
 function createDonutChart(data) {
     const labels = ['Starting Balance', 'Own Contributions', 'Interest Earned'];
     const ctx = document.getElementById('donut-chart');
+    const windowWidth = window.innerWidth;
     const donutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -119,14 +120,6 @@ function creatBarChart(data) {
         data: {
             labels: data.years,
             datasets: [
-            /*
-            {
-                label: 'Starting Balance',
-                data: data.startBalances,
-                borderWidth: 1,
-                backgroundColor: 'rgba(54, 162, 235, 0.8)'
-            },
-             */
             {
                 label: 'Own Contributions',
                 data: data.contributions,
@@ -141,10 +134,13 @@ function creatBarChart(data) {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 2,
             datasets: {
-              bar: {
-                  maxBarThickness: 60,
-              }
+                bar: {
+                    maxBarThickness: 60,
+                }
             },
             scales: {
                 y: {
@@ -235,30 +231,32 @@ function creatBarChart(data) {
 }
 
 function addPhaseToForm() {
-    const additionalPhasesBox = document.getElementById('additional-phases');
-    additionalPhasesBox.insertAdjacentHTML('beforeend', newPhaseAsHtml(currentPhasesCount() + 1));
-    if (currentPhasesCount() - 1 === 0) {
+    const additionalPhasesBox = document.getElementById('all-phases');
+    const newPhasesCount = currentPhasesCount() + 1;
+    additionalPhasesBox.insertAdjacentHTML('beforeend', newPhaseAsHtml(newPhasesCount));
+    if (newPhasesCount - 2 === 0) {
         document.getElementById('rm-btn').disabled = false;
     }
 }
 
 function removeLatestPhaseFromForm() {
-    const additionalPhasesBox = document.getElementById('additional-phases');
-    const latestChild = document.getElementById('phase-' + currentPhasesCount());
-    additionalPhasesBox.removeChild(latestChild);
-    if (currentPhasesCount() === 0) {
+    const allPhasesElem = document.getElementById('all-phases');
+    const phasesCount = currentPhasesCount();
+    const latestChild = document.getElementById('phase-' + phasesCount);
+    allPhasesElem.removeChild(latestChild);
+    if (phasesCount - 2 === 0) {
         document.getElementById('rm-btn').disabled = true;
     }
 }
 
 function currentPhasesCount() {
-    const additionalPhasesBox = document.getElementById('additional-phases');
-    return additionalPhasesBox.childElementCount;
+    const allPhasesElem = document.getElementById('all-phases');
+    return allPhasesElem.childElementCount;
 }
 
 const newPhaseAsHtml = (newPhaseCount) => {
     return '<div class="phase additional-phase" id="phase-' + newPhaseCount + '">\n' +
-        '            <div class="phase-title">Phase ' + (newPhaseCount + 1)  + '</div>\n' +
+        '            <div class="phase-title">Phase ' + newPhaseCount  + '</div>\n' +
         '               <div class="form-input-wrapper part-of-phase">\n' +
         '                   <label for="perContr-' + newPhaseCount + '">Periodic Contribution</label>\n' +
         '                   <span class="input-element currency">\n' +

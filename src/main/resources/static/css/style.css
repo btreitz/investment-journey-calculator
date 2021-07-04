@@ -20,8 +20,8 @@ body {
 .header-content {
     font-size: 30px;
     color: #ffffff;
-    width: 1000px;
-    padding: 13px;
+    width: 1026px;
+    padding-top: 6px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -37,9 +37,80 @@ body {
     flex-direction: column;
 }
 
+.wrap-collapsible input[type='checkbox'] {
+    display: none;
+}
+
+.lbl-toggle {
+    display: block;
+    color: #8c8c8c;
+    background-color: #f2f2f2;
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.25s ease-out;
+}
+
+.material-icons-outlined {
+    vertical-align: bottom;
+}
+
+.info-txt {
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 6px;
+}
+
+.lbl-toggle::after {
+    content: ' ';
+    display: inline-block;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+    vertical-align: middle;
+    transform: translateY(-2px);
+    transition: transform .2s ease-out;
+}
+
+.collapsible-content .content-inner {
+    background-color: #f2f2f2;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0 14px 7px 14px;
+    font-size: 14px;
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .20s ease-in-out;
+}
+
+.lbl-toggle:hover {
+    color: #000000;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+    max-height: 100vh;
+}
+
+.toggle:checked + .lbl-toggle::after {
+    transform: rotate(90deg) translateX(-3px);
+}
+
+.toggle:checked + .lbl-toggle {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.collapsible-content ul {
+    line-height: 22px;
+}
+
 form {
     display: flex;
     flex-direction: column;
+    margin-top: 13px;
 }
 
 .form-input-wrapper {
@@ -57,6 +128,11 @@ form {
     background-color: #f2f2f2;
     border-radius: 5px;
     padding: 14px 7px;
+}
+
+.all-phases {
+    display: flex;
+    flex-direction: column;
 }
 
 .phase-title {
@@ -147,8 +223,6 @@ input[type=submit]:hover {
     margin-bottom: 20px;
 }
 
-.additional-phase {}
-
 .buttons {
     display: flex;
     margin-top: 12px;
@@ -159,6 +233,14 @@ input[type=submit]:hover {
     display: flex;
     width: 312px;
     justify-content: space-between;
+}
+
+#add-btn:after {
+    content: "Add investment phase";
+}
+
+#rm-btn:after {
+    content: "Remove phase";
 }
 
 #add-btn, #rm-btn {
@@ -205,7 +287,8 @@ input[type=submit]:hover {
 }
 
 .donut-chart-container {
-    width: 400px;
+    max-width: 400px;
+    flex: 1;
 }
 
 #data-placeholder {
@@ -220,7 +303,7 @@ input[type=submit]:hover {
 #final-investment-value-text {
     line-height: 32px;
     text-align: center;
-    margin-top: 90px;
+    margin-top: 50px;
     color: #69757a;
     border-bottom: 1px solid #f2f2f2;
     padding-bottom: 30px;
@@ -229,6 +312,7 @@ input[type=submit]:hover {
 #rest-numbers {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     text-align: center;
 }
 
@@ -322,4 +406,113 @@ input[type=submit]:hover {
 
 .bar-chart-container {
     margin-top: 24px;
+}
+
+@media (max-width: 515px) {
+
+    #add-rm-buttons {
+        width: 107px;
+    }
+
+    #add-btn, #rm-btn {
+        width: 50px;
+    }
+
+    #add-btn:after {
+        content: "+";
+    }
+
+    #rm-btn:after {
+        content: "-";
+    }
+
+    #rest-numbers {
+        flex-direction: column;
+    }
+
+    #canvas-info {
+        font-size: 12px;
+        text-align: center;
+        color: #999999;
+    }
+
+    #canvas-info:after {
+        content: "*Use lansdscape mode for more details";
+    }
+
+    input[type=submit] {
+        padding: 13px 50px;
+    }
+
+}
+
+@media (max-width: 750px) {
+    .bar-chart-container {
+        border-bottom: 1px solid #f2f2f2;
+        padding-bottom: 13px;
+    }
+}
+
+@media (max-width: 925px) {
+
+    .phase {
+        flex-direction: column;
+        padding: 0 14px 14px 14px;
+        margin-top: 0;
+    }
+
+    .input-element, select {
+        width: 100%;
+    }
+
+    .phase .input-element, select {
+        margin-top: 4px;
+    }
+
+    .part-of-phase {
+        margin-bottom: 8px;
+    }
+
+    .phase-title {
+        width: 100%;
+        margin: 10px 0;
+        text-align: left;
+        line-height: 30px;
+    }
+
+    .all-phases {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 7px;
+        margin-top: 13px;
+    }
+
+    .results-overview {
+        flex-direction: column;
+    }
+
+    .numbers-overview {
+        border-right: none;
+    }
+
+    .donut-chart-container {
+        margin: 0 auto;
+    }
+
+    #final-investment-value-text {
+        margin-top: 0;
+    }
+
+}
+
+@media (max-width: 1040px) {
+
+    .content-wrapper {
+        width: 96%;
+    }
+
+    .header-content {
+        padding-left: 18px;
+    }
+
 }

@@ -54,7 +54,6 @@ tbody tr:hover {
 }
 
 .column1 {
-    padding-left: 40px;
     text-align: left;
 }
 
@@ -72,16 +71,23 @@ tbody tr:hover {
 
 .column5 {
     text-align: right;
-    padding-right: 40px;
+    padding-right: 8px;
 }
 
-@media screen and (max-width: 992px) {
+@media (max-width: 750px) {
     table {
-        display: block
+        display: table;
+        margin-top: 0;
     }
 
-    table > *, table tr, table td, table th {
-        display: block
+    table tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    table td {
+        display: flex;
+        flex-direction: row;
     }
 
     table thead {
@@ -90,12 +96,12 @@ tbody tr:hover {
 
     table tbody tr {
         height: auto;
-        padding: 37px 0
+        padding: 13px 13px;
+        font-size: 18px;
     }
 
     table tbody tr td {
-        padding-left: 40% !important;
-        margin-bottom: 24px
+        margin-bottom: 13px
     }
 
     table tbody tr td:last-child {
@@ -103,17 +109,24 @@ tbody tr:hover {
     }
 
     table tbody tr td:before {
-        font-size: 14px;
-        color: #999;
-        line-height: 1.2;
-        position: absolute;
-        width: 40%;
+        font-size: 18px;
         left: 30px;
         top: 0
     }
 
-    table tbody tr td:nth-child(1):before {
-        content: "Year"
+    table tbody tr:nth-child(1) {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    table tbody tr:nth-last-child(1) {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    table tbody tr td:nth-child(1) {
+        font-size: 20px;
+        font-weight: bold;
     }
 
     table tbody tr td:nth-child(2):before {
@@ -133,22 +146,14 @@ tbody tr:hover {
     }
 
 
-    .column4, .column5 {
-        text-align: left
+    .column1, .column2, .column3, .column4, .column5 {
+        text-align: left;
+        padding: 0;
+        width: 100%;
     }
 
-    .column4, .column5 .column1, .column2, .column3 {
-        width: 100%
+    .rsText {
+        margin-left: auto;
     }
 
-    tbody tr {
-        font-size: 14px
-    }
-}
-
-@media (max-width: 576px) {
-    .container-table100 {
-        padding-left: 15px;
-        padding-right: 15px
-    }
 }

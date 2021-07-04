@@ -22,6 +22,7 @@ class CalculationControllerTest {
                 .andExpect(status().is(200));
     }
 
+    /*
     @Test
     void calculation_mapping() throws Exception {
         this.mockMvc.perform(get("/calculate?initialInvestment=0.0&periodicContribution=0&contributionFrequency=1&annualGrowth=0&duration=0"))
@@ -50,4 +51,6 @@ class CalculationControllerTest {
         this.mockMvc.perform(get("/calculate?initialInvestment=1000.0&periodicContribution=200&contributionFrequency=1&annualGrowth=8&duration=0"))
                 .andExpect(status().isBadRequest());
     }
+
+     */
 }
