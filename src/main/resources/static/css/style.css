@@ -465,6 +465,21 @@ input[type=submit]:hover {
         width: 100%;
     }
 
+    .phase .input-element, select {
+        margin-top: 4px;
+    }
+
+    .part-of-phase {
+        margin-bottom: 8px;
+    }
+
+    .phase-title {
+        width: 100%;
+        margin: 10px 0;
+        text-align: left;
+        line-height: 30px;
+    }
+
     .all-phases {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
