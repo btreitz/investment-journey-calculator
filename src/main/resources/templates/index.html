@@ -12,7 +12,11 @@
 </head>
 <body>
 <div class="sticky-header">
-    <div class="header-content">Investment Journey Calculator</div>
+    <div class="header-content">
+        <a th:href="@{/}">
+            <img th:src="@{/images/investment-journey-logo.png}" height="55px" alt="Investment Journey Calculator">
+        </a>
+    </div>
 </div>
 
 <div class="content-wrapper">
@@ -27,13 +31,19 @@
         <div class="collapsible-content">
             <div class="content-inner">
                 <span>
-                    Using the investment calculator you calculate how much your investments will grow over a period of time.
+                    Using the investment journey calculator you calculate how much your investments will grow over a period of time.
                     The parameters which have an impact on the final investment value are the initial investment, periodic contributions,
-                    the contribution frequency, the expected growth and the duration. Due to the factored in compound interest, the investment value grows exponentially over time.
-                    <!-- Now tak about why there are phases -->
+                    contribution frequency, the expected growth and the duration. Due to the factored in compound interest, the investment value grows exponentially over time.
                 </span>
-                <br>
-                <spa>
+                <p>
+                    <!-- Now tak about why there are phases -->
+                    An investment journey is usually characterized by a shift in risk tolerance and availability of money over the course of a lifetime. In certain phases of a life,
+                    investors are more willing to take risks and expect higher returns while in other phases, security and the protection of accumulated wealth is the main focus.
+                    Similarly, in certain phases of life, investors have more money available to invest while in others less. This concept is integrated into the investment journey calculator
+                    in the form of "phases" for which you specify the parameters for the specified duration.
+                </p>
+                <span>
+                    Parameters:
                     <ul>
                         <li><b>Initial Investment</b> - The initial amount of money you start your investment journey
                             with
