@@ -27,7 +27,7 @@ body {
 }
 
 .content-wrapper {
-    margin: 72px auto 8px auto;
+    margin: 77px auto 8px auto;
     width: 1000px;
     background-color: #ffffff;
     flex: 1;
@@ -444,6 +444,16 @@ input[type=submit]:hover {
         padding: 13px 50px;
     }
 
+}
+
+@media (max-width: 600px) {
+    body {
+        background-color: #ffffff;
+    }
+
+    .content-wrapper {
+        margin: 69px auto 0 auto;
+    }
 }
 
 @media (max-width: 750px) {
