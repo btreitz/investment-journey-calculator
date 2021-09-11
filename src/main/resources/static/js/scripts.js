@@ -11,7 +11,7 @@
                 $("#results").html(resultFragment);
                 convertAndDisplayTotal();
                 createCharts(getDonutDataFromView(), getBarDataFromView());
-
+                scrollToResults();
             },
             error: function (errorFragment) {
                 $(".error-container").html(errorFragment);
@@ -288,4 +288,9 @@ const newPhaseAsHtml = (newPhaseCount) => {
         '                </span>\n' +
         '            </div>\n' +
         '        </div>'
+}
+
+function scrollToResults() {
+    const scrollDiv = document.getElementById("results").offsetTop;
+    window.scrollTo({ top: scrollDiv - 69, behavior: 'smooth'});
 }

@@ -513,16 +513,34 @@ input[type=submit]:hover {
         margin-top: 0;
     }
 
+    .content-wrapper {
+        width: 93%;
+    }
+
 }
 
 @media (max-width: 1040px) {
-
-    .content-wrapper {
-        width: 96%;
-    }
 
     .header-content {
         padding-left: 18px;
     }
 
+}
+
+@media (min-width: 926px) and (max-width: 1040px) {
+
+    .content-wrapper {
+        width: 96%;
+    }
+
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .sticky-header {
+        position: absolute;
+    }
+
+    .header-content {
+        width: 97%;
+    }
 }
