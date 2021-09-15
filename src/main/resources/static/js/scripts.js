@@ -237,6 +237,11 @@ function addPhaseToForm() {
     if (newPhasesCount - 2 === 0) {
         document.getElementById('rm-btn').disabled = false;
     }
+    // focus the first input element
+    document.getElementById(`perContr-${newPhasesCount}`).focus();
+    // scroll to the new phase if it is not in the frame
+    const posNewPhase = document.getElementById(`phase-${newPhasesCount}`).offsetTop;
+    window.scrollTo({ top: posNewPhase - 69, behavior: 'smooth'});
 }
 
 function removeLatestPhaseFromForm() {
