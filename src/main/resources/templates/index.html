@@ -14,14 +14,13 @@
 <div class="sticky-header">
     <div class="header-content">
         <a th:href="@{/}">
-            <img th:src="@{/images/investment-journey-logo.png}" height="55px" alt="Investment Journey Calculator">
+            <img alt="Investment Journey Calculator" height="55px" th:src="@{/images/investment-journey-logo.png}">
         </a>
     </div>
 </div>
 
 <div class="content-wrapper">
 
-    <!-- INFO COLLAPSIBLE -->
     <div class="wrap-collapsible">
         <input class="toggle" id="collapsible" type="checkbox">
         <label class="lbl-toggle" for="collapsible">
@@ -36,10 +35,12 @@
                     contribution frequency, the expected growth and the duration. Due to the factored in compound interest, the investment value grows exponentially over time.
                 </span>
                 <p>
-                    <!-- Now tak about why there are phases -->
-                    An investment journey is usually characterized by a shift in risk tolerance and availability of money over the course of a lifetime. In certain phases of a life,
-                    investors are more willing to take risks and expect higher returns while in other phases, security and the protection of accumulated wealth is the main focus.
-                    Similarly, in certain phases of life, investors have more money available to invest while in others less. This concept is integrated into the investment journey calculator
+                    An investment journey is usually characterized by a shift in risk tolerance and availability of
+                    money over the course of a lifetime. In certain phases of a life,
+                    investors are more willing to take risks and expect higher returns while in other phases, security
+                    and the protection of accumulated wealth is the main focus.
+                    Similarly, in certain phases of life, investors have more money available to invest while in others
+                    less. This concept is integrated into the investment journey calculator
                     in the form of "phases" for which you specify the parameters for the specified duration.
                 </p>
                 <span>
@@ -59,19 +60,17 @@
                         </li>
                         <li><b>Duration</b> - The amount of years you plan to follow this investment phase</li>
                     </ul>
-                    </span>
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- ERROR HANDLING -->
     <div class="error-container" th:fragment="error-container" th:if="${errors != null}">
         <ul th:each="errorMessage : ${errors}">
             <li th:text="${errorMessage}"></li>
         </ul>
     </div>
 
-    <!-- BASIC PLAN -->
     <form action="/calculate" autocomplete="off" id="form" method="POST">
 
         <div class="form-input-wrapper">
@@ -117,14 +116,12 @@
                 </div>
             </div>
 
-            <!-- ADDITIONAL Phases added below -->
-
         </div>
 
 
         <div class="buttons">
             <div id="add-rm-buttons">
-                <button id="add-btn" th:onclick="addPhaseToForm()" type="button"></button>
+                <button id="add-btn" th:onclick="addPhaseToForm()" type="button">
                 <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button"></button>
             </div>
 
@@ -132,7 +129,6 @@
         </div>
     </form>
 
-    <!-- RESULTS -->
     <div id="results" th:fragment="results">
 
         <span id="data-placeholder" th:if="${totalResult != null}">
@@ -143,7 +139,6 @@
         </span>
 
         <div class="results-overview">
-            <!-- RESULT OVERVIEW -->
             <div class="numbers-overview" th:if="${totalResult != null}">
                 <p id="final-investment-value-text">
                     The total value of your investment will be<br>
@@ -168,7 +163,6 @@
             <div id="canvas-info"></div>
         </div>
 
-        <!-- RESULTS DETAIL -->
         <table th:if="${totalResult != null}">
             <div class="table-content">
                 <thead>

@@ -2,7 +2,7 @@ body {
     font-family: Roboto, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
+    background-color: #eef0f6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -12,7 +12,7 @@ body {
 .sticky-header {
     position: fixed;
     top: 0;
-    background: #0077b3;
+    background: #335188;
     width: 100%;
     z-index: 1000;
 }
@@ -27,7 +27,7 @@ body {
 }
 
 .content-wrapper {
-    margin: 72px auto 8px auto;
+    margin: 77px auto 8px auto;
     width: 1000px;
     background-color: #ffffff;
     flex: 1;
@@ -44,7 +44,7 @@ body {
 .lbl-toggle {
     display: block;
     color: #8c8c8c;
-    background-color: #f2f2f2;
+    background-color: #eef0f6;
     padding: 7px;
     cursor: pointer;
     border-radius: 5px;
@@ -73,7 +73,7 @@ body {
 }
 
 .collapsible-content .content-inner {
-    background-color: #f2f2f2;
+    background-color: #eef0f6;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 0 14px 7px 14px;
@@ -86,12 +86,14 @@ body {
     transition: max-height .20s ease-in-out;
 }
 
-.lbl-toggle:hover {
-    color: #000000;
+@media (hover: hover) {
+    .lbl-toggle:hover {
+        color: #000000;
+    }
 }
 
 .toggle:checked + .lbl-toggle + .collapsible-content {
-    max-height: 100vh;
+    max-height: 100%;
 }
 
 .toggle:checked + .lbl-toggle::after {
@@ -125,7 +127,7 @@ form {
     display: flex;
     flex-direction: row;
     margin-top: 13px;
-    background-color: #f2f2f2;
+    background-color: #eef0f6;
     border-radius: 5px;
     padding: 14px 7px;
 }
@@ -185,13 +187,16 @@ input[type=submit] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #0077b3;
+    background-color: #335188;
     color: white;
     font-size: 14px;
+    transition: background-color 0.1s linear;
 }
 
-input[type=submit]:hover {
-    background-color: #0099e6;
+@media (hover: hover) {
+    input[type=submit]:hover {
+        background-color: #4E6BBC;
+    }
 }
 
 .currency::after {
@@ -236,7 +241,7 @@ input[type=submit]:hover {
 }
 
 #add-btn:after {
-    content: "Add investment phase";
+    content: "Add phase";
 }
 
 #rm-btn:after {
@@ -245,19 +250,23 @@ input[type=submit]:hover {
 
 #add-btn, #rm-btn {
     width: 150px;
-    padding: 6px 20px;
+    padding: 14px 20px;
     border-style: none;
     border-radius: 5px;
     outline: none;
     font-size: 14px;
+    background-color: #eef0f6;
+    transition: background-color 0.1s linear;
 }
 
 #add-btn, #rm-btn:enabled {
     cursor: pointer;
 }
 
-#add-btn:hover, #rm-btn:hover:enabled {
-    background-color: #e6e6e6;
+@media (hover: hover) {
+    #add-btn:hover, #rm-btn:hover:enabled {
+        background-color: #afb8d5;
+    }
 }
 
 #results {
@@ -277,7 +286,7 @@ input[type=submit]:hover {
     display: flex;
     flex-direction: column;
     flex: 1;
-    border-right: 1px solid #f2f2f2;
+    border-right: 1px solid #eef0f6;
     padding: 0 30px;
 }
 
@@ -297,7 +306,7 @@ input[type=submit]:hover {
 
 #final-investment-value-text-amount {
     font-size: 32px;
-    color: #0077b3;
+    color: #335188;
 }
 
 #final-investment-value-text {
@@ -305,7 +314,7 @@ input[type=submit]:hover {
     text-align: center;
     margin-top: 50px;
     color: #69757a;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid #eef0f6;
     padding-bottom: 30px;
 }
 
@@ -349,9 +358,11 @@ input[type=submit]:hover {
     transition: transform 0.25s ease-out;
 }
 
-#start-balance-text-amount:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+@media (hover: hover) {
+    #start-balance-text-amount:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
 }
 
 #total-contributions-text-amount {
@@ -374,9 +385,11 @@ input[type=submit]:hover {
     transition: transform 0.25s ease-out;
 }
 
-#total-contributions-text-amount:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+@media (hover: hover) {
+    #total-contributions-text-amount:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
 }
 
 #total-interest-text-amount {
@@ -399,9 +412,11 @@ input[type=submit]:hover {
     transition: transform 0.25s ease-out;
 }
 
-#total-interest-text-amount:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+@media (hover: hover) {
+    #total-interest-text-amount:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
 }
 
 .bar-chart-container {
@@ -416,14 +431,19 @@ input[type=submit]:hover {
 
     #add-btn, #rm-btn {
         width: 50px;
+        padding: 15px 20px 13px 20px;
     }
 
     #add-btn:after {
-        content: "+";
+        font-family: "Material Icons Outlined";
+        content: "add";
+        margin-left: -2px;
     }
 
     #rm-btn:after {
-        content: "-";
+        font-family: "Material Icons Outlined";
+        content: "remove";
+        margin-left: -2px;
     }
 
     #rest-numbers {
@@ -446,9 +466,19 @@ input[type=submit]:hover {
 
 }
 
+@media (max-width: 600px) {
+    body {
+        background-color: #ffffff;
+    }
+
+    .content-wrapper {
+        margin: 69px auto 0 auto;
+    }
+}
+
 @media (max-width: 750px) {
     .bar-chart-container {
-        border-bottom: 1px solid #f2f2f2;
+        border-bottom: 1px solid #eef0f6;
         padding-bottom: 13px;
     }
 }
@@ -503,16 +533,34 @@ input[type=submit]:hover {
         margin-top: 0;
     }
 
+    .content-wrapper {
+        width: 93%;
+    }
+
 }
 
 @media (max-width: 1040px) {
-
-    .content-wrapper {
-        width: 96%;
-    }
 
     .header-content {
         padding-left: 18px;
     }
 
+}
+
+@media (min-width: 926px) and (max-width: 1040px) {
+
+    .content-wrapper {
+        width: 96%;
+    }
+
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .sticky-header {
+        position: absolute;
+    }
+
+    .header-content {
+        width: 97%;
+    }
 }

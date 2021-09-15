@@ -21,7 +21,7 @@ table td, table th {
 
 table thead tr {
     height: 50px;
-    background: #0077b3
+    background: #335188
 }
 
 table tbody tr {
@@ -39,7 +39,7 @@ table td.r, table th.r {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f5f5f5
+    background-color: #eef0f6
 }
 
 tbody tr {
@@ -47,10 +47,12 @@ tbody tr {
     line-height: 1.2;
 }
 
-tbody tr:hover {
-    color: #555;
-    background-color: #f5f5f5;
-    cursor: pointer
+@media (hover: hover) {
+    tbody tr:hover {
+        color: #555;
+        background-color: #afb8d5;
+        cursor: pointer
+    }
 }
 
 .column1 {
