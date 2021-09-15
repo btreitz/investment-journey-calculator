@@ -91,7 +91,7 @@ body {
 }
 
 .toggle:checked + .lbl-toggle + .collapsible-content {
-    max-height: 100vh;
+    max-height: 100%;
 }
 
 .toggle:checked + .lbl-toggle::after {
@@ -236,7 +236,7 @@ input[type=submit]:hover {
 }
 
 #add-btn:after {
-    content: "Add investment phase";
+    content: "Add phase";
 }
 
 #rm-btn:after {
@@ -245,7 +245,7 @@ input[type=submit]:hover {
 
 #add-btn, #rm-btn {
     width: 150px;
-    padding: 6px 20px;
+    padding: 14px 20px;
     border-style: none;
     border-radius: 5px;
     outline: none;
@@ -419,11 +419,13 @@ input[type=submit]:hover {
     }
 
     #add-btn:after {
-        content: "+";
+        font-family: "Material Icons Outlined";
+        content: "add";
     }
 
     #rm-btn:after {
-        content: "-";
+        font-family: "Material Icons Outlined";
+        content: "remove";
     }
 
     #rest-numbers {
