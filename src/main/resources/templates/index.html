@@ -25,7 +25,7 @@
 
 <div class="content-wrapper" th:fragment="content-wrapper">
 
-    <div id="privacy-policy" th:if="${showPrivacyPolicy == true}">
+    <div id="privacy-policy" th:if="${showPrivacyPolicy == true && showImprint == false}">
         <h1>Privacy Policy</h1>
 
         <p>Investment Journey Calculator operates the https://investmentjourneycalc.com website, which provides the
@@ -116,7 +116,19 @@
         <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.</p>
     </div>
 
-    <div th:if="${showPrivacyPolicy == false}">
+    <div id="imprint" th:if="${showImprint == true && showPrivacyPolicy == false}">
+        <h1>Imprint</h1>
+
+        <h2>Information according to <a href="https://www.gesetze-im-internet.de/tmg/__5.html" target="_blank">&sect; 5 TMG</a></h2>
+        <p>Bastian Treitz<br />
+            Kurt-Eisner-Stra&szlig;e, 46<br />
+            04275 Leipzig</p>
+
+        <h2>Contact</h2>
+        <p>E-Mail: bastian.treitz@web.de</p>
+    </div>
+
+    <div th:if="${showPrivacyPolicy == false && showImprint == false}">
         <div class="wrap-collapsible">
             <input class="toggle" id="collapsible" type="checkbox">
             <label class="lbl-toggle" for="collapsible">
@@ -301,6 +313,11 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="additional-info-wrapper">
+    <a class="additional-info-item" href="/privacy">Privacy Policy</a>
+    <a class="additional-info-item" href="/imprint">Imprint</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

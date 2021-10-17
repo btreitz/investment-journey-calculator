@@ -26,6 +26,21 @@ body {
     margin-right: auto;
 }
 
+.additional-info-wrapper {
+    margin: 0 auto;
+    width: 1000px;
+    padding: 0 13px;
+    display: flex;
+    flex-direction: row;
+}
+
+.additional-info-item {
+    font-size: 10px;
+    color: #555555;
+    margin-right: 15px;
+    margin-bottom: 8px;
+}
+
 .content-wrapper {
     margin: 77px auto 8px auto;
     width: 1000px;
@@ -533,7 +548,7 @@ input[type=submit] {
         margin-top: 0;
     }
 
-    .content-wrapper {
+    .content-wrapper, .additional-info-wrapper {
         width: 93%;
     }
 
@@ -549,7 +564,7 @@ input[type=submit] {
 
 @media (min-width: 926px) and (max-width: 1040px) {
 
-    .content-wrapper {
+    .content-wrapper, .additional-info-wrapper {
         width: 96%;
     }
 
