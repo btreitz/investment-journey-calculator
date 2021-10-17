@@ -64,7 +64,8 @@ public class CalculationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("showPrivacyPolicy", false);
         return "index";
     }
 
@@ -83,6 +84,12 @@ public class CalculationController {
         TotalResult totalResult = calculationService.calculateTotal(initialInvestment, periodicContribution, contributionFrequency, annualGrowth, duration);
         model.addAttribute("totalResult", totalResult);
         return "index::results";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/privacy")
+    public String privacyPolicy(Model model) {
+        model.addAttribute("showPrivacyPolicy", true);
+        return "index";
     }
 
 }
