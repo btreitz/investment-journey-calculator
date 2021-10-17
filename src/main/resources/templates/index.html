@@ -4,12 +4,15 @@
     <title>Investment Journey Calculator</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <script data-ad-client="ca-pub-1934274965955998" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async data-ad-client="ca-pub-1934274965955998"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/tableStyles.css}"/>
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body>
 <div class="sticky-header">
@@ -20,31 +23,137 @@
     </div>
 </div>
 
-<div class="content-wrapper">
+<div class="content-wrapper" th:fragment="content-wrapper">
 
-    <div class="wrap-collapsible">
-        <input class="toggle" id="collapsible" type="checkbox">
-        <label class="lbl-toggle" for="collapsible">
-            <span class="material-icons-outlined">info</span>
-            <span class="info-txt">Information</span>
-        </label>
-        <div class="collapsible-content">
-            <div class="content-inner">
+    <div id="privacy-policy" th:if="${showPrivacyPolicy == true && showImprint == false}">
+        <h1>Privacy Policy</h1>
+
+        <p>Investment Journey Calculator operates the https://investmentjourneycalc.com website, which provides the
+            SERVICE.</p>
+
+        <p>This page is used to inform website visitors regarding our policies with the collection, use, and disclosure
+            of Personal Information if anyone decided to use our Service, the Investment Journey Calculator website.</p>
+
+        <p>If you choose to use our Service, then you agree to the collection and use of information in relation with
+            this policy. The Personal Information that we collect are used for providing and improving the Service. We
+            will not use or share your information with anyone except as described in this Privacy Policy. Our Privacy
+            Policy was created with the help of the <a href="https://www.privacypolicytemplate.net">Privacy Policy
+                Template Generator</a>.</p>
+
+        <p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is
+            accessible at https://investmentjourneycalc.com, unless otherwise defined in this Privacy Policy.</p>
+
+        <h2>Information Collection and Use</h2>
+
+        <p>For a better experience while using our Service, we may require you to provide us with certain personally
+            identifiable information, including but not limited to your name, phone number, and postal address. The
+            information that we collect will be used to contact or identify you.</p>
+
+        <h2>Log Data</h2>
+
+        <p>We want to inform you that whenever you visit our Service, we collect information that your browser sends to
+            us that is called Log Data. This Log Data may include information such as your computer’s Internet Protocol
+            ("IP") address, browser version, pages of our Service that you visit, the time and date of your visit, the
+            time spent on those pages, and other statistics.</p>
+
+        <h2>Cookies</h2>
+
+        <p>Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are
+            sent to your browser from the website that you visit and are stored on your computer’s hard drive.</p>
+
+        <p>Our website uses these "cookies" to collection information and to improve our Service. You have the option to
+            either accept or refuse these cookies, and know when a cookie is being sent to your computer. If you choose
+            to refuse our cookies, you may not be able to use some portions of our Service.</p>
+
+        <p>For more general information on cookies, please read <a
+                href="https://www.generateprivacypolicy.com/#cookies">"Cookies" article from the Privacy Policy
+            Generator</a>.</p>
+
+        <h2>Service Providers</h2>
+
+        <p>We may employ third-party companies and individuals due to the following reasons:</p>
+
+        <ul>
+            <li>To facilitate our Service;</li>
+            <li>To provide the Service on our behalf;</li>
+            <li>To perform Service-related services; or</li>
+            <li>To assist us in analyzing how our Service is used.</li>
+        </ul>
+
+        <p>We want to inform our Service users that these third parties have access to your Personal Information. The
+            reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose
+            or use the information for any other purpose.</p>
+
+        <h2>Security</h2>
+
+        <p>We value your trust in providing us your Personal Information, thus we are striving to use commercially
+            acceptable means of protecting it. But remember that no method of transmission over the internet, or method
+            of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.</p>
+
+        <h2>Links to Other Sites</h2>
+
+        <p>Our Service may contain links to other sites. If you click on a third-party link, you will be directed to
+            that site. Note that these external sites are not operated by us. Therefore, we strongly advise you to
+            review the Privacy Policy of these websites. We have no control over, and assume no responsibility for the
+            content, privacy policies, or practices of any third-party sites or services.</p>
+
+        <p>Children's Privacy</p>
+
+        <p>Our Services do not address anyone under the age of 13. We do not knowingly collect personal identifiable
+            information from children under 13. In the case we discover that a child under 13 has provided us with
+            personal information, we immediately delete this from our servers. If you are a parent or guardian and you
+            are aware that your child has provided us with personal information, please contact us so that we will be
+            able to do necessary actions.</p>
+
+        <h2>Changes to This Privacy Policy</h2>
+
+        <p>We may update our Privacy Policy from time to time. Thus, we advise you to review this page periodically for
+            any changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes
+            are effective immediately, after they are posted on this page.</p>
+
+        <h2>Contact Us</h2>
+
+        <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.</p>
+    </div>
+
+    <div id="imprint" th:if="${showImprint == true && showPrivacyPolicy == false}">
+        <h1>Imprint</h1>
+
+        <h2>Information according to <a href="https://www.gesetze-im-internet.de/tmg/__5.html" target="_blank">&sect; 5 TMG</a></h2>
+        <p>Bastian Treitz<br />
+            Kurt-Eisner-Stra&szlig;e, 46<br />
+            04275 Leipzig</p>
+
+        <h2>Contact</h2>
+        <p>E-Mail: bastian.treitz@web.de</p>
+    </div>
+
+    <div th:if="${showPrivacyPolicy == false && showImprint == false}">
+        <div class="wrap-collapsible">
+            <input class="toggle" id="collapsible" type="checkbox">
+            <label class="lbl-toggle" for="collapsible">
+                <span class="material-icons-outlined">info</span>
+                <span class="info-txt">Information</span>
+            </label>
+            <div class="collapsible-content">
+                <div class="content-inner">
                 <span>
                     Using the investment journey calculator you calculate how much your investments will grow over a period of time.
                     The parameters which have an impact on the final investment value are the initial investment, periodic contributions,
                     contribution frequency, the expected growth and the duration. Due to the factored in compound interest, the investment value grows exponentially over time.
                 </span>
-                <p>
-                    An investment journey is usually characterized by a shift in risk tolerance and availability of
-                    money over the course of a lifetime. In certain phases of a life,
-                    investors are more willing to take risks and expect higher returns while in other phases, security
-                    and the protection of accumulated wealth is the main focus.
-                    Similarly, in certain phases of life, investors have more money available to invest while in others
-                    less. This concept is integrated into the investment journey calculator
-                    in the form of "phases" for which you specify the parameters for the specified duration.
-                </p>
-                <span>
+                    <p>
+                        An investment journey is usually characterized by a shift in risk tolerance and availability of
+                        money over the course of a lifetime. In certain phases of a life,
+                        investors are more willing to take risks and expect higher returns while in other phases,
+                        security
+                        and the protection of accumulated wealth is the main focus.
+                        Similarly, in certain phases of life, investors have more money available to invest while in
+                        others
+                        less. This concept is integrated into the investment journey calculator
+                        in the form of "phases" for which you specify the parameters for the specified duration.
+                    </p>
+                    <span>
                     Parameters:
                     <ul>
                         <li><b>Initial Investment</b> - The initial amount of money you start your investment journey
@@ -62,75 +171,75 @@
                         <li><b>Duration</b> - The amount of years you plan to follow this investment phase</li>
                     </ul>
                 </span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="error-container" th:fragment="error-container" th:if="${errors != null}">
-        <ul th:each="errorMessage : ${errors}">
-            <li th:text="${errorMessage}"></li>
-        </ul>
-    </div>
+        <div class="error-container" th:fragment="error-container" th:if="${errors != null}">
+            <ul th:each="errorMessage : ${errors}">
+                <li th:text="${errorMessage}"></li>
+            </ul>
+        </div>
 
-    <form action="/calculate" autocomplete="off" id="form" method="POST">
+        <form action="/calculate" autocomplete="off" id="form" method="POST">
 
-        <div class="form-input-wrapper">
-            <label for="inInv">Initial Investment</label>
-            <span class="input-element currency">
+            <div class="form-input-wrapper">
+                <label for="inInv">Initial Investment</label>
+                <span class="input-element currency">
                 <input id="inInv" name="initialInvestment" placeholder="1000.0" required
                        th:min="0" type="number">
             </span>
-        </div>
-        <div class="all-phases" id="all-phases">
+            </div>
+            <div class="all-phases" id="all-phases">
 
-            <div class="phase">
-                <div class="phase-title">Phase 1</div>
-                <div class="form-input-wrapper part-of-phase">
-                    <label for="perContr">Periodic Contribution</label>
-                    <span class="input-element currency">
+                <div class="phase">
+                    <div class="phase-title">Phase 1</div>
+                    <div class="form-input-wrapper part-of-phase">
+                        <label for="perContr">Periodic Contribution</label>
+                        <span class="input-element currency">
                     <input id="perContr" name="periodicContribution" placeholder="100.0" required
                            th:min="0" type="number">
                 </span>
-                </div>
-                <div class="form-input-wrapper part-of-phase">
-                    <label for="contrFreq">Contribution Frequency</label>
-                    <select id="contrFreq" name="contributionFrequency">
-                        <option selected th:text="Monthly" th:value="1"></option>
-                        <option th:text="Quarterly" th:value="3"></option>
-                        <option th:text="Semi-Annually" th:value="6"></option>
-                        <option th:text="Annually" th:value="12"></option>
-                    </select>
-                </div>
-                <div class="form-input-wrapper part-of-phase">
-                    <label for="annGrowth">Annual Growth</label>
-                    <span class="input-element percentage">
+                    </div>
+                    <div class="form-input-wrapper part-of-phase">
+                        <label for="contrFreq">Contribution Frequency</label>
+                        <select id="contrFreq" name="contributionFrequency">
+                            <option selected th:text="Monthly" th:value="1"></option>
+                            <option th:text="Quarterly" th:value="3"></option>
+                            <option th:text="Semi-Annually" th:value="6"></option>
+                            <option th:text="Annually" th:value="12"></option>
+                        </select>
+                    </div>
+                    <div class="form-input-wrapper part-of-phase">
+                        <label for="annGrowth">Annual Growth</label>
+                        <span class="input-element percentage">
                     <input id="annGrowth" name="annualGrowth" placeholder="8.0" required th:max="100"
                            th:min="-100" type="number">
                 </span>
-                </div>
-                <div class="form-input-wrapper part-of-phase">
-                    <label for="durat">Duration</label>
-                    <span class="input-element years">
+                    </div>
+                    <div class="form-input-wrapper part-of-phase">
+                        <label for="durat">Duration</label>
+                        <span class="input-element years">
                     <input id="durat" name="duration" placeholder="10" required th:max="100"
                            th:min="1" type="number">
                 </span>
+                    </div>
                 </div>
+
             </div>
 
-        </div>
 
+            <div class="buttons">
+                <div id="add-rm-buttons">
+                    <button id="add-btn" th:onclick="addPhaseToForm()" type="button">
+                        <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button"></button>
+                </div>
 
-        <div class="buttons">
-            <div id="add-rm-buttons">
-                <button id="add-btn" th:onclick="addPhaseToForm()" type="button">
-                <button disabled id="rm-btn" th:onclick="removeLatestPhaseFromForm()" type="button"></button>
+                <input type="submit" value="Calculate">
             </div>
+        </form>
 
-            <input type="submit" value="Calculate">
-        </div>
-    </form>
-
-    <div id="results" th:fragment="results">
+        <div id="results" th:fragment="results">
 
         <span id="data-placeholder" th:if="${totalResult != null}">
             <span id="start-balance" th:text="${totalResult.getStartBalance()}"></span>
@@ -139,44 +248,44 @@
             <span id="total-interest" th:text="${totalResult.getTotalInterest()}"></span>
         </span>
 
-        <div class="results-overview">
-            <div class="numbers-overview" th:if="${totalResult != null}">
-                <p id="final-investment-value-text">
-                    The total value of your investment will be<br>
-                    <span id="final-investment-value-text-amount"></span>
-                </p>
-                <div id="rest-numbers">
-                    <p class="rest-number-field" id="start-balance-text">Starting Balance: <br><span
-                            class="euro-amount" id="start-balance-text-amount"></span></p>
-                    <p class="rest-number-field" id="total-contributions-text">Own Contributions: <br><span
-                            class="euro-amount" id="total-contributions-text-amount"></span></p>
-                    <p class="rest-number-field" id="total-interest-text">Interest Earned: <br><span
-                            class="euro-amount" id="total-interest-text-amount"></span></p>
+            <div class="results-overview">
+                <div class="numbers-overview" th:if="${totalResult != null}">
+                    <p id="final-investment-value-text">
+                        The total value of your investment will be<br>
+                        <span id="final-investment-value-text-amount"></span>
+                    </p>
+                    <div id="rest-numbers">
+                        <p class="rest-number-field" id="start-balance-text">Starting Balance: <br><span
+                                class="euro-amount" id="start-balance-text-amount"></span></p>
+                        <p class="rest-number-field" id="total-contributions-text">Own Contributions: <br><span
+                                class="euro-amount" id="total-contributions-text-amount"></span></p>
+                        <p class="rest-number-field" id="total-interest-text">Interest Earned: <br><span
+                                class="euro-amount" id="total-interest-text-amount"></span></p>
+                    </div>
+                </div>
+                <div class="donut-chart-container" th:if="${totalResult != null}">
+                    <canvas id="donut-chart"></canvas>
                 </div>
             </div>
-            <div class="donut-chart-container" th:if="${totalResult != null}">
-                <canvas id="donut-chart"></canvas>
+
+            <div class="bar-chart-container" th:if="${totalResult != null}">
+                <canvas id="bar-chart"></canvas>
+                <div id="canvas-info"></div>
             </div>
-        </div>
 
-        <div class="bar-chart-container" th:if="${totalResult != null}">
-            <canvas id="bar-chart"></canvas>
-            <div id="canvas-info"></div>
-        </div>
-
-        <table th:if="${totalResult != null}">
-            <div class="table-content">
-                <thead>
-                <tr class="table100-head">
-                    <th class="column1"> Year</th>
-                    <th class="column2"> Start Amount</th>
-                    <th class="column3"> Annual Contribution</th>
-                    <th class="column4"> Annual Interest</th>
-                    <th class="column5"> End Balance</th>
-                </tr>
-                </thead>
-                <tbody>
-                <span th:each="phase : ${totalResult.getPhaseResultList()}">
+            <table th:if="${totalResult != null}">
+                <div class="table-content">
+                    <thead>
+                    <tr class="table100-head">
+                        <th class="column1"> Year</th>
+                        <th class="column2"> Start Amount</th>
+                        <th class="column3"> Annual Contribution</th>
+                        <th class="column4"> Annual Interest</th>
+                        <th class="column5"> End Balance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <span th:each="phase : ${totalResult.getPhaseResultList()}">
                     <tr th:each="annualResult : ${phase.getAnnualResultList()}">
                         <td class="column1"><span class="hidden hidden-annual-year-text"
                                                   th:text="${annualResult.getYear()}"></span><span
@@ -199,14 +308,22 @@
                                 th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                     </tr>
                 </span>
-                </tbody>
-            </div>
-        </table>
+                    </tbody>
+                </div>
+            </table>
+        </div>
     </div>
+</div>
+
+<div class="additional-info-wrapper">
+    <a class="additional-info-item" href="/privacy">Privacy Policy</a>
+    <a class="additional-info-item" href="/imprint">Imprint</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/js/scripts.js}" type="application/javascript"></script>
+<script data-cfasync="false" src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+<script th:src="@{/js/cookieConsent.js}" type="application/javascript"></script>
 </body>
 </html>
