@@ -243,51 +243,54 @@
 
         <div id="results" th:fragment="results">
 
-        <span id="data-placeholder" th:if="${totalResult != null}">
-            <span id="start-balance" th:text="${totalResult.getStartBalance()}"></span>
-            <span id="final-investment-value" th:text="${totalResult.getTotalValue()}"></span>
-            <span id="total-contributions" th:text="${totalResult.getTotalContributions()}"></span>
-            <span id="total-interest" th:text="${totalResult.getTotalInterest()}"></span>
-        </span>
+            <div id="loader"></div>
 
-            <div class="results-overview">
-                <div class="numbers-overview" th:if="${totalResult != null}">
-                    <p id="final-investment-value-text">
-                        The total value of your investment will be<br>
-                        <span id="final-investment-value-text-amount"></span>
-                    </p>
-                    <div id="rest-numbers">
-                        <p class="rest-number-field" id="start-balance-text">Starting Balance: <br><span
-                                class="euro-amount" id="start-balance-text-amount"></span></p>
-                        <p class="rest-number-field" id="total-contributions-text">Own Contributions: <br><span
-                                class="euro-amount" id="total-contributions-text-amount"></span></p>
-                        <p class="rest-number-field" id="total-interest-text">Interest Earned: <br><span
-                                class="euro-amount" id="total-interest-text-amount"></span></p>
+            <span id="data-placeholder" th:if="${totalResult != null}">
+                <span id="start-balance" th:text="${totalResult.getStartBalance()}"></span>
+                <span id="final-investment-value" th:text="${totalResult.getTotalValue()}"></span>
+                <span id="total-contributions" th:text="${totalResult.getTotalContributions()}"></span>
+                <span id="total-interest" th:text="${totalResult.getTotalInterest()}"></span>
+            </span>
+
+            <div id="displayed-data">
+                <div class="results-overview">
+                    <div class="numbers-overview" th:if="${totalResult != null}">
+                        <p id="final-investment-value-text">
+                            The total value of your investment will be<br>
+                            <span id="final-investment-value-text-amount"></span>
+                        </p>
+                        <div id="rest-numbers">
+                            <p class="rest-number-field" id="start-balance-text">Starting Balance: <br><span
+                                    class="euro-amount" id="start-balance-text-amount"></span></p>
+                            <p class="rest-number-field" id="total-contributions-text">Own Contributions: <br><span
+                                    class="euro-amount" id="total-contributions-text-amount"></span></p>
+                            <p class="rest-number-field" id="total-interest-text">Interest Earned: <br><span
+                                    class="euro-amount" id="total-interest-text-amount"></span></p>
+                        </div>
+                    </div>
+                    <div class="donut-chart-container" th:if="${totalResult != null}">
+                        <canvas id="donut-chart"></canvas>
                     </div>
                 </div>
-                <div class="donut-chart-container" th:if="${totalResult != null}">
-                    <canvas id="donut-chart"></canvas>
+
+                <div class="bar-chart-container" th:if="${totalResult != null}">
+                    <canvas id="bar-chart"></canvas>
+                    <div id="canvas-info"></div>
                 </div>
-            </div>
 
-            <div class="bar-chart-container" th:if="${totalResult != null}">
-                <canvas id="bar-chart"></canvas>
-                <div id="canvas-info"></div>
-            </div>
-
-            <table th:if="${totalResult != null}">
-                <div class="table-content">
-                    <thead>
-                    <tr class="table100-head">
-                        <th class="column1"> Year</th>
-                        <th class="column2"> Start Amount</th>
-                        <th class="column3"> Annual Contribution</th>
-                        <th class="column4"> Annual Interest</th>
-                        <th class="column5"> End Balance</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <span th:each="phase : ${totalResult.getPhaseResultList()}">
+                <table th:if="${totalResult != null}">
+                    <div class="table-content">
+                        <thead>
+                        <tr class="table100-head">
+                            <th class="column1"> Year</th>
+                            <th class="column2"> Start Amount</th>
+                            <th class="column3"> Annual Contribution</th>
+                            <th class="column4"> Annual Interest</th>
+                            <th class="column5"> End Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <span th:each="phase : ${totalResult.getPhaseResultList()}">
                     <tr th:each="annualResult : ${phase.getAnnualResultList()}">
                         <td class="column1"><span class="hidden hidden-annual-year-text"
                                                   th:text="${annualResult.getYear()}"></span><span
@@ -310,9 +313,10 @@
                                 th:text="${#numbers.formatDecimal(annualResult.getEndBalance(), 1, 'POINT', 2, 'COMMA')}"></span> €</td>
                     </tr>
                 </span>
-                    </tbody>
-                </div>
-            </table>
+                        </tbody>
+                    </div>
+                </table>
+            </div>
         </div>
     </div>
 </div>
