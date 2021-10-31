@@ -12,7 +12,7 @@ if (!privacyPolicyShown) {
         },
         "theme": "classic",
         "content": {
-            "message": "This website uses cookies for advertising purposes.",
+            "message": "This website uses cookies to analyze traffic.",
             "dismiss": "Got it!",
             "link": "Learn more",
             "href": "/privacy"
