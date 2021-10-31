@@ -1,22 +1,25 @@
-
-(function($) {
+(function ($) {
     const formElem = $('#form');
     formElem.on('submit', function (e) {
         e.preventDefault();
+        toggleLoading();
         $.ajax({
             url: formElem.attr('action'),
             type: formElem.attr('method'),
-            data: formElem.serialize(),
-            success: function (resultFragment) {
-                $("#results").html(resultFragment);
-                convertAndDisplayTotal();
-                createCharts(getDonutDataFromView(), getBarDataFromView());
-                scrollToResults();
-            },
-            error: function (errorFragment) {
-                $(".error-container").html(errorFragment);
-            }
+            data: formElem.serialize()
         })
+        .always(function () {
+            toggleLoading();
+        })
+        .done(function (resultFragment) {
+            $("#results").html(resultFragment);
+            convertAndDisplayTotal();
+            createCharts(getDonutDataFromView(), getBarDataFromView());
+            scrollToResults();
+        })
+        .fail(function (errorFragment) {
+            $(".error-container").html(errorFragment);
+        });
     })
 
 }(jQuery));
@@ -53,7 +56,13 @@ function getBarDataFromView() {
     document.querySelectorAll('.hidden-annual-interest-text').forEach(elem => annualInterests.push(elem.innerHTML));
     document.querySelectorAll('.hidden-annual-end-balance-text').forEach(elem => annualEndBalances.push(elem.innerHTML));
     const annualStartBalance = Array(annualYears.length).fill(document.getElementById('start-balance').innerHTML);
-    return { startBalances: annualStartBalance, years: annualYears, contributions: annualContributions, interests: annualInterests, endBalances: annualEndBalances };
+    return {
+        startBalances: annualStartBalance,
+        years: annualYears,
+        contributions: annualContributions,
+        interests: annualInterests,
+        endBalances: annualEndBalances
+    };
 }
 
 function createCharts(donutData, barData) {
@@ -93,7 +102,7 @@ function createDonutChart(data) {
                 },
                 tooltip: {
                     callbacks: {
-                        label: function(tooltipItem) {
+                        label: function (tooltipItem) {
                             return labels[tooltipItem.dataIndex] + ': ' + tooltipItem.formattedValue + ' €'
                         }
                     },
@@ -120,18 +129,18 @@ function creatBarChart(data) {
         data: {
             labels: data.years,
             datasets: [
-            {
-                label: 'Own Contributions',
-                data: data.contributions,
-                borderWidth: 1,
-                backgroundColor: 'rgba(255, 190, 26, 0.8)'
-            },
-            {
-                label: 'Interest Earned',
-                data: data.interests,
-                borderWidth: 1,
-                backgroundColor: 'rgba(51, 204, 51, 0.8)'
-            }]
+                {
+                    label: 'Own Contributions',
+                    data: data.contributions,
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(255, 190, 26, 0.8)'
+                },
+                {
+                    label: 'Interest Earned',
+                    data: data.interests,
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(51, 204, 51, 0.8)'
+                }]
         },
         options: {
             responsive: true,
@@ -148,7 +157,7 @@ function creatBarChart(data) {
                     stacked: true,
                     ticks: {
                         // Include a dollar sign in the ticks
-                        callback: function(value, index, values) {
+                        callback: function (value, index, values) {
                             return parseFloat(value).toLocaleString('de-DE', {
                                 style: "currency",
                                 currency: "EUR"
@@ -241,7 +250,7 @@ function addPhaseToForm() {
     document.getElementById(`perContr-${newPhasesCount}`).focus();
     // scroll to the new phase if it is not in the frame
     const posNewPhase = document.getElementById(`phase-${newPhasesCount}`).offsetTop;
-    window.scrollTo({ top: posNewPhase - 69, behavior: 'smooth'});
+    window.scrollTo({top: posNewPhase - 69, behavior: 'smooth'});
 }
 
 function removeLatestPhaseFromForm() {
@@ -261,7 +270,7 @@ function currentPhasesCount() {
 
 const newPhaseAsHtml = (newPhaseCount) => {
     return '<div class="phase additional-phase" id="phase-' + newPhaseCount + '">\n' +
-        '            <div class="phase-title">Phase ' + newPhaseCount  + '</div>\n' +
+        '            <div class="phase-title">Phase ' + newPhaseCount + '</div>\n' +
         '               <div class="form-input-wrapper part-of-phase">\n' +
         '                   <label for="perContr-' + newPhaseCount + '">Periodic Contribution</label>\n' +
         '                   <span class="input-element currency">\n' +
@@ -297,5 +306,12 @@ const newPhaseAsHtml = (newPhaseCount) => {
 
 function scrollToResults() {
     const scrollDiv = document.getElementById("results").offsetTop;
-    window.scrollTo({ top: scrollDiv - 69, behavior: 'smooth'});
+    window.scrollTo({top: scrollDiv - 69, behavior: 'smooth'});
+}
+
+function toggleLoading() {
+    const loaderEl = document.getElementById("loader");
+    const displayedDataEl = document.getElementById("displayed-data");
+    loaderEl.classList.toggle("loader");
+    displayedDataEl.classList.toggle("no-display");
 }
