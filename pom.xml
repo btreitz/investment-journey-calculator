@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.btreitz</groupId>
     <artifactId>investmentcalc</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>investmentcalc</name>
     <description>Web Application to calculate the expected Value of invested money based on compound interests
     </description>
