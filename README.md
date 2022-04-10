@@ -1,5 +1,7 @@
 # Investment Journey Calculator
 
+\>\> https://investmentjourneycalc.com/ <<
+
 A Fullstack Web-Application to calculate long term returns for investment plans. The calculator differs from other conventional investment calculators by offering the possibility to seperate the investment journey into multiple phases with different parameters instead of assuming the parameters are valid for the entire investment journey.
 
 ## Technologies
