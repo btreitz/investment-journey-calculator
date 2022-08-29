@@ -47,3 +47,4 @@ Run all tests:
 Run a specific test class (replace '[...]'):
 
         mvn test -Dtest=[test-class-name]
+
