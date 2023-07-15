@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM openjdk:11
+FROM openjdk:17
 MAINTAINER basti.treitz@gmail.com
 WORKDIR /app
 

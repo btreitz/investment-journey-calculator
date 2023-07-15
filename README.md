@@ -10,7 +10,7 @@ with different parameters instead of assuming the parameters are valid for the e
 
 Backend:
 
-- Java 11
+- Java 17
 - [Spring Boot 2](https://spring.io/projects/spring-boot)
 
 Frontend:
@@ -20,7 +20,7 @@ Frontend:
 
 Testing:
 
-- [JUnit 5 Jupiter](https://junit.org/junit5/) (using maven)
+- [JUnit 5 Jupiter](https://junit.org/junit5/)
 
 Deployment & Hosting:
 
@@ -31,7 +31,7 @@ Deployment & Hosting:
 
 | Tool  | Version |
 | ----- | ------- |
-| Java  | 11      |
+| Java  | 17      |
 | Maven | 3.8.x   |
 
 ## Run
