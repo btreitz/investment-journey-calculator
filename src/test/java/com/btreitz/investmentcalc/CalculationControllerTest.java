@@ -21,7 +21,4 @@ class CalculationControllerTest {
         this.mockMvc.perform(get("/"))
                 .andExpect(status().is(200));
     }
-
-    // TODO: Add tests to check specific calculation-requests and bad requests
-
 }

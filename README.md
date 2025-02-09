@@ -24,7 +24,7 @@ Testing:
 
 Deployment & Hosting:
 
-- [Railway](https://railway.app/)
+- Self hosted (initially [Railway](https://railway.app/))
 - [Docker](https://www.docker.com/)
 
 ## Prerequisites
@@ -73,3 +73,21 @@ docker run -p 8080:8080 investment-journey-calc
 ```
 
 Open port [localhost:8080](http://localhost:8080/)
+
+## Docker Compose
+
+To build and run the application using Docker Compose, use the following command:
+
+```bash
+docker-compose up
+```
+
+To set a custom external port, use the `PORT` environment variable:
+
+```bash
+PORT=9090 docker-compose up
+```
+
+This will map the internal port 8080 to the external port 9090.
+
+Open port [localhost:9090](http://localhost:9090/) (or the port you specified).
