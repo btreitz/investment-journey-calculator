@@ -24,7 +24,7 @@ Testing:
 
 Deployment & Hosting:
 
-- [Railway](https://railway.app/)
+- Self hosted (initially [Railway](https://railway.app/))
 - [Docker](https://www.docker.com/)
 
 ## Prerequisites

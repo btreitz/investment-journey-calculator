@@ -65,7 +65,6 @@ public class CalculationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String index(Model model) {
-        model.addAttribute("showImprint", false);
         model.addAttribute("showPrivacyPolicy", false);
         return "index";
     }
@@ -89,15 +88,7 @@ public class CalculationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/privacy")
     public String privacyPolicy(Model model) {
-        model.addAttribute("showImprint", false);
         model.addAttribute("showPrivacyPolicy", true);
-        return "index";
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/imprint")
-    public String imprint(Model model) {
-        model.addAttribute("showPrivacyPolicy", false);
-        model.addAttribute("showImprint", true);
         return "index";
     }
 
