@@ -1,5 +1,6 @@
 services:
   investment-journey-calc:
+    container_name: investment-journey-calc
     build:
       context: .
       dockerfile: Dockerfile
